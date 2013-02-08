@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+20.times do  
+  uuid =  SecureRandom.uuid
+  entity = {:uuid => "#{uuid}", :description => "description for entity #{uuid}" }
+  Entity.create!(entity)  
+end

@@ -1,0 +1,14 @@
+-#  This file is app/views/entities/index.html.haml
+%h2 All Entities
+
+%table#entities
+  %thead
+    %tr
+      %th Entity UUID
+      %th Description
+  %tbody
+    - @entities.each do |entity|
+      %tr
+        %td= entity.uuid 
+        %td= entity.description
+        %td= link_to "More about #{entity.uuid}", entity_path(entity)

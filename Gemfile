@@ -42,3 +42,10 @@ group :test, :development do
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
 end
+
+# use Haml for templates
+gem 'haml'
+# use Ruby debugger
+group :development, :test do
+  gem 'ruby-debug19'
+end
