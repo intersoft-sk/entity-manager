@@ -1,0 +1,13 @@
+-#  = label :entity, :local_ID, 'LocalID'
+-#  = text_field :entity, :local_ID
+
+%h2 Update Entity
+
+= form_tag entity_path(@entity), :method => :put do
+  = label :entity, :uuid, 'UUID'
+  = text_field :entity, :uuid, :disabled => 'on'
+
+  = label :entity, :description, 'Description'
+  = text_field :entity, :description
+
+  = submit_tag 'Save Changes'

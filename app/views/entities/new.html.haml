@@ -1,0 +1,11 @@
+%h2 Register New Entity
+
+= form_tag entities_path, :method => :post do
+
+  = label :entity, :local_ID, 'LocalID'
+  = text_field :entity, :local_ID
+
+  = label :entity, :description, 'Description'
+  = text_field :entity, :description
+
+  = submit_tag 'Save Changes'

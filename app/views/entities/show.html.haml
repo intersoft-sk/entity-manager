@@ -1,0 +1,20 @@
+-# in app/views/entities/show.html.haml
+
+%h2 Details about #{@entity.uuid}
+
+%ul#details
+  %li
+    UUID:
+    = @entity.uuid
+  %li
+    Inserted on:
+    = @entity.created_at.strftime("%d. %B %Y, %H:%M:%S,%L %Z")
+
+%h3 Description:
+
+%p#description= @entity.description
+
+= link_to 'Edit entity description', edit_entity_path(@entity)
+-# This Delete link will not really be a link, but a form:
+= button_to 'Delete', entity_path(@entity), :method => :delete, :confirm => 'Are you sure?'
+= link_to 'Back to entity list', entities_path
