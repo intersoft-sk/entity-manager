@@ -56,6 +56,10 @@ EntityManager::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
-  resources :entities
+  resources :entities    
   root :to => redirect('/entities')
+  
+  match 'auth/:provider/callback' => 'sessions#create', :as => 'login'
+  match 'logout' => 'sessions#destroy'
+  match 'auth/google' => 'sessions#create', :as => 'login'
 end

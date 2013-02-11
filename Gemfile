@@ -20,6 +20,11 @@ gem 'simplecov'
 
 gem 'jquery-rails'
 
+gem 'omniauth'
+gem 'omniauth-google'
+gem 'omniauth-twitter'
+gem 'omniauth-openid'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -33,6 +38,7 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'cucumber-rails'
+  gem 'minitest' #added based on error message after first run of cucumber
 end
 
 group :test, :development do  
@@ -41,6 +47,7 @@ group :test, :development do
   gem 'capybara'         # lets Cucumber pretend to be a web browser
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
+  gem 'ZenTest'
 end
 
 # use Haml for templates

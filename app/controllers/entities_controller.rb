@@ -1,7 +1,7 @@
 # This file is app/controllers/entities_controller.rb
 class EntitiesController < ApplicationController
   def index
-    @entities = Entity.all
+    @entities = Entity.order("description")
   end
   
   # in app/controllers/movies_controller.rb
@@ -52,8 +52,15 @@ class EntitiesController < ApplicationController
       @entity
     end
     @entity.update_attributes!(params[:entity])
-    flash[:notice] = "#{@entity.uuid} was successfully updated."
-    redirect_to entity_path(@entity)
+    respond_to do |client_wants|
+      client_wants.html {  
+        flash[:notice] = "#{@entity.uuid} was successfully updated."
+        redirect_to entity_path(@entity)
+        return
+      } # as before
+      client_wants.xml  {  render :xml => @entity.to_xml    }
+    end
+      
   end
 
   def destroy
@@ -67,4 +74,7 @@ class EntitiesController < ApplicationController
     redirect_to entities_path
   end
 
+  def login
+  end
+  
 end

@@ -16,6 +16,15 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
 
+    when /^the Entity Manager home page/
+      '/entities'
+      
+    when /^the Register New Entity page/
+      '/entities/new'
+      
+    when /^the Logging page for Entity Manager/
+      '/entities/login'
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

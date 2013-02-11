@@ -1,3 +1,13 @@
+Given /^I log in as "(.*?)" with "(.*?)"$/ do |username, password|
+  steps %Q{
+    Given I am on the Logging page for Entity Manager
+    Then  I should see "Log in page for Entity Manager"
+    When  I fill in "username" with "#{username}"
+    And   I fill in "password" with "#{password}"
+    And   I press "Log in"
+  }
+end
+
 Given /I have added "(.*)" with description "(.*)"/ do |localID, description|
   steps %Q{
     Given I am on the Register New Entity page

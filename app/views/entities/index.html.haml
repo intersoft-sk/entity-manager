@@ -6,11 +6,16 @@
     %tr
       %th Entity UUID
       %th Description
+      %th Details
+      %th Edit
+      %th Delete                  
   %tbody
     - @entities.each do |entity|
       %tr
         %td= entity.uuid 
         %td= entity.description
         %td= link_to "More about #{entity.uuid}", entity_path(entity)
+        %td= link_to 'Edit', edit_entity_path(entity)
+        %td= button_to 'Delete', entity_path(entity), :method => :delete, :confirm => 'Are you sure?'
         
 = link_to 'Register new entity', new_entity_path
