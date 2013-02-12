@@ -20,10 +20,10 @@ gem 'simplecov'
 
 gem 'jquery-rails'
 
-gem 'omniauth'
-gem 'omniauth-google'
-gem 'omniauth-twitter'
-gem 'omniauth-openid'
+
+#gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github'
 
 # Use unicorn as the web server
 # gem 'unicorn'

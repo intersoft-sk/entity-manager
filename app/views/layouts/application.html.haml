@@ -7,13 +7,7 @@
     = csrf_meta_tags
 
   %body
-  #login
-  - if @current_user
-    %p.welcome  Welcome, #{@current_user.name}!
-    = link_to 'Log Out', logout_path
-  - else
-    %p.login= link_to 'Log in with your Google account', login_path
-    
+    = render :partial=>'sessions/login'
     %h1.title Entity Manager of ebbits
     #main
       - if flash[:notice]
