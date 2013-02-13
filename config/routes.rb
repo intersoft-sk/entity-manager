@@ -59,12 +59,12 @@ EntityManager::Application.routes.draw do
   resources :entities    
   root :to => redirect('/entities')
   
-  match 'auth/:provider/callback' => 'sessions#create', :as => :login
-  match 'auth/google_oauth2/callback' => 'sessions#create', :as => :login
-  match 'auth/github/callback' => 'sessions#create', :as => :login
+#  match 'auth/:provider/callback' => 'sessions#create', :as => :login
+#  match 'auth/google_oauth2/callback' => 'sessions#create', :as => :login
+#  match 'auth/github/callback' => 'sessions#create', :as => :login
 #  match 'logout' => 'sessions#destroy'
   
-  match 'logout' => 'sessions#destroy', :as => :logout
+#  match 'logout' => 'sessions#destroy', :as => :logout
 
 
 end
