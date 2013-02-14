@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-20.times do  
+10.times do  
   uuid =  SecureRandom.uuid
   entity = {:uuid => "#{uuid}", :description => "description for entity #{uuid}" }
   Entity.create!(entity)  

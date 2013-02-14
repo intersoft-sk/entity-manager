@@ -24,11 +24,20 @@ class EntitiesController < ApplicationController
   end
 
   def create
+    #raise params.inspect        
     #raise params.inspect    
-    new_params = {}
-    new_params.store("uuid", SecureRandom.uuid)
-    new_params.store("description", params[:entity][:description])    
-    @entity = Entity.create!(new_params)
+    new_params = {} # params for LocalID
+    new_params.store("owner", session[:user_id])
+    new_params.store("local_ID", params[:localIdentities][:local_ID])
+    new_params.store("description", params[:localIdentities][:description])
+    #@localIdentity = LocalIdentity.create!(new_params)
+    new_params2 = {} #params for entity
+    new_params2.store("uuid", SecureRandom.uuid)
+    new_params2.store("schema", 'urn:entityID:')
+    #for now just copy the description of local identity
+    new_params2.store("description", params[:localIdentities][:description])    
+    @entity = Entity.create!(new_params2)
+    @entity.localIdentities.create(new_params)
     flash[:notice] = "'#{@entity.description}' was successfully registered."
     redirect_to entities_path
   end
