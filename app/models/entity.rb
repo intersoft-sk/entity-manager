@@ -1,3 +1,3 @@
 class Entity < ActiveRecord::Base
-  has_many :localIdentities
+  has_many :local_identities
 end

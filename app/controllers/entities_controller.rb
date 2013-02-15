@@ -16,6 +16,7 @@ class EntitiesController < ApplicationController
     else
       @entity
     end
+    @localIDs = @entity.local_identities
     # will render app/views/entities/show.html.haml by default
   end
   
@@ -23,21 +24,22 @@ class EntitiesController < ApplicationController
     # default: render 'new' template
   end
 
-  def create
-    #raise params.inspect        
+  def create              
     #raise params.inspect    
     new_params = {} # params for LocalID
-    new_params.store("owner", session[:user_id])
+    owner = Owner.all[0];
     new_params.store("local_ID", params[:localIdentities][:local_ID])
     new_params.store("description", params[:localIdentities][:description])
-    #@localIdentity = LocalIdentity.create!(new_params)
+    @localIdentity = LocalIdentity.create!(new_params)
+    @localIdentity.owner = owner
     new_params2 = {} #params for entity
     new_params2.store("uuid", SecureRandom.uuid)
     new_params2.store("schema", 'urn:entityID:')
     #for now just copy the description of local identity
     new_params2.store("description", params[:localIdentities][:description])    
+    #raise new_params2.inspect
     @entity = Entity.create!(new_params2)
-    @entity.localIdentities.create(new_params)
+    @entity.local_identities << @localIdentity
     flash[:notice] = "'#{@entity.description}' was successfully registered."
     redirect_to entities_path
   end

@@ -14,6 +14,15 @@
 
 %p#description= @entity.description
 
+%table#local_identities
+  %thead
+    %tr
+      %th Local ID
+      %th Name
+      %th Owner
+  %tbody
+    = render :partial=>'local_identity', :collection=>@localIDs
+
 = link_to 'Edit entity description', edit_entity_path(@entity)
 -# This Delete link will not really be a link, but a form:
 = button_to 'Delete', entity_path(@entity), :method => :delete, :confirm => 'Are you sure?'
