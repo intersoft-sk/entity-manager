@@ -5,17 +5,15 @@ class EntitiesController < ApplicationController
   end
   
   def get_by_alias
-    @entity = Entity.find_by_alias(params[:search_terms])
-#    if @entity == nil
-#      flash[:notice] = "Entity with local aliad '#{params[:search_terms]}' does not exist!"
-#      redirect_to entities_path
-#    else
-#      @entity
-#    end
-#    @localIDs = @entity.local_identities
-    redirect_to entity_path(@entity)
-    #flash[:warning] = "No entity found for local alias: '#{params[:search_terms]}'."
-    #redirect_to entities_path
+    #until SSo wil be fixed   
+    @entity = LocalIdentity.find_by_alias(params[:search_terms], '1')#session[:user_id])
+    
+    unless @entity.nil?
+      redirect_to entity_path(@entity) and return
+    end
+
+    flash[:notice] = "Entity with local alias '#{params[:search_terms]}' does not exist!"
+    redirect_to entities_path
   end
 
   def show

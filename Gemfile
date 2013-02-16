@@ -25,6 +25,8 @@ gem 'jquery-rails'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-github'
 
+gem 'factory_girl_rails'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

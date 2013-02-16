@@ -16,17 +16,17 @@ describe EntitiesController do
     end
     
     it 'should call the model method that performs Entity search' do
-      Entity.should_receive(:find_by_alias).with('Sensor 1').
+      LocalIdentity.should_receive(:find_by_alias).with('Sensor 1', '1').
         and_return(@fake_result)
       post :get_by_alias, {:search_terms => 'Sensor 1'}
     end
     it 'should redirect to the Entity page' do
-      Entity.stub(:find_by_alias).and_return(@fake_result)
+      LocalIdentity.stub(:find_by_alias).and_return(@fake_result)
       post :get_by_alias, {:search_terms => 'Sensor 1'}
       response.should redirect_to(entity_path(assigns(:entity)))
     end
     it 'should make the Entity search results available to redirected page' do
-      Entity.stub(:find_by_alias).and_return(@fake_result)
+      LocalIdentity.stub(:find_by_alias).and_return(@fake_result)
       post :get_by_alias, {:search_terms => 'Sensor 1'}
       assigns(:entity).should == @fake_result
     end

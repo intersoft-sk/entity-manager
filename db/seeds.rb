@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
+#protected attributes - not working, but there is one owner with id 1
 owner = Owner.create_with_omniauth({"uid" => "12345", "provider" => "provider of credentials for owner 12345", "info" => {"name" => "Name of owner 12345"}})  
 
 serial = 1

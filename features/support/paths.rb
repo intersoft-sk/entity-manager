@@ -28,6 +28,9 @@ module NavigationHelpers
     when /^the Search Results page/
       '/entities/:entity_id/local_identities'
       
+    when /^the Entity page/
+      '/entity/:entity_id'  
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
