@@ -6,11 +6,11 @@ Feature: User can manually add Entity
 
 Scenario: Try to add already existing entity (sad path)
 
-  Given I log in as "User1" with "Password1"
-  Then I should be on the Entity Manager home page
-  When I have added "Sensor 1" with description "Sensor 1 from User1"
-  Then I should be on the Entity Manager home page  
-  And I should see "Sensor 1 already exists!"
+#  Given I log in as "User1" with "Password1"
+#  Then I should be on the Entity Manager home page
+#  When I have added "Sensor 1" with description "Sensor 1 from User1"
+#  Then I should be on the Entity Manager home page  
+#  And I should see "Sensor 1 already exists!"
 
 
 #Scenario: Add an entity
@@ -24,8 +24,8 @@ Scenario: Try to add already existing entity (sad path)
 #  And I should see "ebbits uuid for Sensor 1a"
   
 Scenario: view entity list after adding entities
-  Given I have added "Sensor 3" with description "ebbits uuid for Sensor 3"
-  And   I have added "Sensor 2" with description "ebbits uuid for Sensor 2"
-  And   I am on the Entity Manager home page #sorted by description
-  Then  I should see "Sensor 2" before "Sensor 3" on the Entity Manager home page
+#  Given I have added "Sensor 3" with description "ebbits uuid for Sensor 3"
+#  And   I have added "Sensor 2" with description "ebbits uuid for Sensor 2"
+#  And   I am on the Entity Manager home page #sorted by description
+#  Then  I should see "Sensor 2" before "Sensor 3" on the Entity Manager home page
   

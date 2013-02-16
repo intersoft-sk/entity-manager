@@ -19,4 +19,11 @@
         %td= button_to 'Delete', entity_path(entity), :method => :delete, :confirm => 'Are you sure?'
         
 = link_to 'Register new entity', new_entity_path
--#= link_to 'Search by local ID', searchByLocalID_entity_path
+
+%h1 Get Identity by local alias
+
+= form_tag :action => 'get_by_alias' do
+
+  %label{:for => 'search_terms'} Search Terms
+  = text_field_tag 'search_terms'
+  = submit_tag 'Search by Alias'

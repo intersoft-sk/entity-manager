@@ -59,6 +59,9 @@ EntityManager::Application.routes.draw do
   resources :entities do
   	resources :local_identities
   end   
+  # Route that posts 'Search by Alias' form
+  post '/entities/get_by_alias'
+
   root :to => redirect('/entities')
   
 #  match 'auth/:provider/callback' => 'sessions#create', :as => :login

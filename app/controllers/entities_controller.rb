@@ -4,7 +4,19 @@ class EntitiesController < ApplicationController
     @entities = Entity.order("description")
   end
   
-  # in app/controllers/movies_controller.rb
+  def get_by_alias
+    @entity = Entity.find_by_alias(params[:search_terms])
+#    if @entity == nil
+#      flash[:notice] = "Entity with local aliad '#{params[:search_terms]}' does not exist!"
+#      redirect_to entities_path
+#    else
+#      @entity
+#    end
+#    @localIDs = @entity.local_identities
+    redirect_to entity_path(@entity)
+    #flash[:warning] = "No entity found for local alias: '#{params[:search_terms]}'."
+    #redirect_to entities_path
+  end
 
   def show
     id = params[:id] # retrieve internal entity ID from URI route
