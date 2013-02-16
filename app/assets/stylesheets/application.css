@@ -45,16 +45,22 @@ h1.title {
 }
 table#entities {
   margin: 10px;
-  border-collapse: collapse;
+  border-collapse: collapse; 
   width: 100%;
   border-bottom: 2px solid black;
 }
-table#entities th {
+table#local_identities  {
+  margin: 20px;
+  border-collapse: collapse; 
+  width: 60%;
+  border-bottom: 1px solid black;
+}
+table#entities th, table#local_identities th {
   border: 2px solid white;
   font-weight: bold;
   background-color: wheat;
 }
-table#entities th, table#movies td {
+table#entities th, table#local_identities td {
   padding: 4px;
   text-align: left;
 }

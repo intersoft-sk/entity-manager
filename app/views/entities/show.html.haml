@@ -1,4 +1,5 @@
 -# in app/views/entities/show.html.haml
+= link_to 'Back to entity list', entities_path
 
 %h2 Details about #{@entity.uuid}
 
@@ -14,18 +15,24 @@
 
 %p#description= @entity.description
 
+= link_to 'Edit entity description', edit_entity_path(@entity)
+
+-# This Delete link will not really be a link, but a form:
+= button_to 'Delete', entity_path(@entity), :method => :delete, :confirm => 'Are you sure?'
+
+%h3 List of local identities - aliases for #{@entity.uuid}
+
 %table#local_identities
   %thead
     %tr
       %th Local ID
       %th Name
       %th Owner
+      %th Delete   
   %tbody
     = render :partial=>'local_identity', :collection=>@localIDs
 
 = link_to 'Add Local ID', new_entity_local_identity_path(@entity)
 
-= link_to 'Edit entity description', edit_entity_path(@entity)
--# This Delete link will not really be a link, but a form:
-= button_to 'Delete', entity_path(@entity), :method => :delete, :confirm => 'Are you sure?'
-= link_to 'Back to entity list', entities_path
+
+

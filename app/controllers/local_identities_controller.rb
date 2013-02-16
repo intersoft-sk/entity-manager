@@ -28,4 +28,14 @@ class LocalIdentitiesController < ApplicationController
     flash[:notice] = "'#{@lid.name}' was successfully added."
     redirect_to entity_path(@entity)
   end
+  
+  def destroy
+    @lid = LocalIdentity.find_by_id(params[:id])
+    unless @lid.nil?
+    	entity = @lid.entity
+    	@lid.destroy
+    end
+    flash[:notice] = "Local alias '#{@lid.name}' deleted."
+    redirect_to entity_path(entity)
+  end
 end

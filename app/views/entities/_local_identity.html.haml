@@ -3,3 +3,4 @@
 	%td= local_identity.local_ID
 	%td= local_identity.description
 	%td= local_identity.owner_id
+	%td= button_to 'Delete', entity_local_identity_path(@entity,local_identity), :method => :delete, :confirm => 'Are you sure?'

@@ -6,7 +6,8 @@ class EntitiesController < ApplicationController
   
   def get_by_alias
     #until SSo wil be fixed   
-    @entity = LocalIdentity.find_by_alias(params[:search_terms], '1')#session[:user_id])
+    owner = Owner.first
+    @entity = LocalIdentity.find_by_alias(params[:search_terms], owner.id)#session[:user_id])
     
     unless @entity.nil?
       redirect_to entity_path(@entity) and return

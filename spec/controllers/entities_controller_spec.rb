@@ -10,9 +10,12 @@ describe EntitiesController do
 #    it 'should make the inserted data available to that template'
   end
 
-  describe 'getting the Identity of an Entity by local Alias' do
+  describe 'getting the Entity by local Alias' do
     before :each do
       @fake_result = [mock('entity1')]
+      @fake_owner = mock('Owner')
+      @fake_owner.stub(:id).and_return('1')
+      Owner.stub(:first).and_return(@fake_owner)
     end
     
     it 'should call the model method that performs Entity search' do
@@ -21,7 +24,7 @@ describe EntitiesController do
       post :get_by_alias, {:search_terms => 'Sensor 1'}
     end
     it 'should redirect to the Entity page' do
-      LocalIdentity.stub(:find_by_alias).and_return(@fake_result)
+      LocalIdentity.stub(:find_by_alias).and_return(@fake_result)      
       post :get_by_alias, {:search_terms => 'Sensor 1'}
       response.should redirect_to(entity_path(assigns(:entity)))
     end

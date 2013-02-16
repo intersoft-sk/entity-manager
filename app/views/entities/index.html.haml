@@ -1,4 +1,15 @@
 -#  This file is app/views/entities/index.html.haml
+= link_to 'Register new entity', new_entity_path
+
+%h2 Get Identity by local alias
+
+= form_tag :action => 'get_by_alias' do
+
+  %label{:for => 'search_terms'} Search Terms
+  = text_field_tag 'search_terms'
+  = submit_tag 'Search by Alias'
+
+
 %h2 All Entities
 
 %table#entities
@@ -18,12 +29,4 @@
         -#        %td= link_to 'Edit', edit_entity_path(entity)
         %td= button_to 'Delete', entity_path(entity), :method => :delete, :confirm => 'Are you sure?'
         
-= link_to 'Register new entity', new_entity_path
 
-%h1 Get Identity by local alias
-
-= form_tag :action => 'get_by_alias' do
-
-  %label{:for => 'search_terms'} Search Terms
-  = text_field_tag 'search_terms'
-  = submit_tag 'Search by Alias'

@@ -4,7 +4,6 @@ class LocalIdentity < ActiveRecord::Base
   attr_protected :owner_id
   
   def self.find_by_alias(string, owner)
-#    debugger
     lid = LocalIdentity.where("local_ID = ? AND owner_id = ?", string, owner)
     
     unless lid.nil? or lid.empty?
