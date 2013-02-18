@@ -15,6 +15,6 @@ class ChangeLocalIdentitiesTable < ActiveRecord::Migration
   end
 
   def down
-  	drop_table :local_identities
+#  	drop_table :local_identities
   end
 end
