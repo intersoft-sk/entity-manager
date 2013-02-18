@@ -4,7 +4,7 @@ class LocalIdentity < ActiveRecord::Base
   attr_protected :owner_id
   
   def self.find_by_alias(string, owner)
-    lid = LocalIdentity.where("local_ID = ? AND owner_id = ?", string, owner)
+    lid = LocalIdentity.where("localID = ? AND owner_id = ?", string, owner)
     
     unless lid.nil? or lid.empty?
       lid[0].entity

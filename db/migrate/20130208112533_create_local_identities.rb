@@ -1,6 +1,6 @@
 class CreateLocalIdentities < ActiveRecord::Migration
   def up
-    create_table :localIdentities do |t|
+    create_table :local_identities do |t|
       t.string :local_ID
       t.string :owner
       t.text :description
@@ -11,6 +11,6 @@ class CreateLocalIdentities < ActiveRecord::Migration
   end
 
   def down
-    drop_table :localIdentities
+    drop_table :local_identities
   end
 end

@@ -56,13 +56,13 @@ EntityManager::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
+  root :to => redirect('/entities')
+  
   resources :entities do
   	resources :local_identities
   end   
   # Route that posts 'Search by Alias' form
-  post '/entities/get_by_alias'
-
-  root :to => redirect('/entities')
+  post '/entities/get_by_alias'  
   
 #  match 'auth/:provider/callback' => 'sessions#create', :as => :login
 #  match 'auth/google_oauth2/callback' => 'sessions#create', :as => :login

@@ -1,9 +1,9 @@
 class ChangeLocalIdentitiesTable < ActiveRecord::Migration
   def up
-  	drop_table :localIdentities
+  	drop_table :local_identities
   	
 	create_table :local_identities do |t|
-      t.string :local_ID
+      t.string :localID
       t.string :name
       t.references :owner
       t.text :description
