@@ -39,15 +39,15 @@ class EntitiesController < ApplicationController
     #raise params.inspect    
     new_params = {} # params for LocalID
     owner = Owner.all[0];
-    new_params.store("localid", params[:localIdentities][:localid])
-    new_params.store("description", params[:localIdentities][:description])
+    new_params.store("localid", params[:local_dentities][:localid])
+    new_params.store("description", params[:local_identities][:description])
     @localIdentity = LocalIdentity.create!(new_params)
     @localIdentity.owner = owner
     new_params2 = {} #params for entity
     new_params2.store("uuid", SecureRandom.uuid)
     new_params2.store("schema", 'urn:entityID:')
     #for now just copy the description of local identity
-    new_params2.store("description", params[:localIdentities][:description])    
+    new_params2.store("description", params[:local_identities][:description])    
     #raise new_params2.inspect
     @entity = Entity.create!(new_params2)
     @entity.local_identities << @localIdentity
