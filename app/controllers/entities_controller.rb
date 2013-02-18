@@ -39,7 +39,7 @@ class EntitiesController < ApplicationController
     #raise params.inspect    
     new_params = {} # params for LocalID
     owner = Owner.all[0];
-    new_params.store("localID", params[:localIdentities][:localID])
+    new_params.store("localid", params[:localIdentities][:localid])
     new_params.store("description", params[:localIdentities][:description])
     @localIdentity = LocalIdentity.create!(new_params)
     @localIdentity.owner = owner

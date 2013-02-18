@@ -17,7 +17,7 @@ serial = 1
 	e = Entity.create!(entity)    
 	1.upto(5) do  |x|
 	  y = serial + x
-  	lid = {:localID => "local ID #{y}", :name => "Name of entity with local ID #{y}",:description => "description of entity with local ID #{y}"}
+  	lid = {:localid => "local ID #{y}", :name => "Name of entity with local ID #{y}",:description => "description of entity with local ID #{y}"}
   	lid = LocalIdentity.create!(lid)
 		lid.owner = owner
 		e.local_identities << lid
