@@ -5,7 +5,6 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 
 
 # Gems used only for assets and not required
@@ -50,11 +49,13 @@ group :test, :development do
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
   gem 'ZenTest'
+  gem 'sqlite3' # use SQLite only in development and testing
+  gem 'ruby-debug19' # use Ruby debugger
 end
 
 # use Haml for templates
 gem 'haml'
-# use Ruby debugger
-group :development, :test do
-  gem 'ruby-debug19'
+
+group :production do
+  gem 'pg' # use PostgreSQL in production (Heroku)
 end
