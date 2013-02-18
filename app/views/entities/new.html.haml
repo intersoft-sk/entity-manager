@@ -2,10 +2,10 @@
 
 = form_tag entities_path, :method => :post do
 
-  = label :localIdentities, :local_ID, 'LocalID'
-  = text_field :localIdentities, :local_ID
+  = label :local_identities, :localid, 'Local ID'
+  = text_field :local_identities, :localid
 
-  = label :localIdentities, :description, 'Description'
-  = text_field :localIdentities, :description
+  = label :local_identities, :description, 'Description'
+  = text_field :local_identities, :description
 
   = submit_tag 'Save Changes'

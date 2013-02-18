@@ -1,7 +1,7 @@
 %h1 New Local ID for #{@entity.uuid}
 
 = form_tag entity_local_identities_path(@entity) do
-	= label :local_identities, :localid, 'Localid'
+	= label :local_identities, :localid, 'Local ID'
 	= text_field :local_identities, :localid
 
 	= label :local_identities, :name, 'Name'
