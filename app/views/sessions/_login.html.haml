@@ -3,4 +3,4 @@
     %p.welcome  Welcome, #{@current_user.name}!
     = link_to 'Log Out', logout_path
   - else
-    %p.login= link_to 'Log in with your GitHub account', login_path
+    %p.login= link_to 'Log in with your Google account', '/auth/google_oauth2'

@@ -64,12 +64,13 @@ EntityManager::Application.routes.draw do
   # Route that posts 'Search by Alias' form
   post '/entities/get_by_alias'  
   
-#  match 'auth/:provider/callback' => 'sessions#create', :as => :login
-#  match 'auth/google_oauth2/callback' => 'sessions#create', :as => :login
-  match 'auth/github/callback' => 'sessions#create', :as => :login
+  match 'auth/:provider/callback' => 'sessions#create' #, :as => :login
+#	match '/auth/google_oauth2'
+#  match '/auth/google_oauth2/callback' => 'sessions#create', :as => :login
+#  match 'auth/github/callback' => 'sessions#create', :as => :login2
 #  match 'logout' => 'sessions#destroy'
   
-  match 'logout' => 'sessions#destroy', :as => :logout
+  match 'logout' => 'sessions#destroy' #, :as => :logout
 
 
 end

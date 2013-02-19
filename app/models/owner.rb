@@ -1,5 +1,5 @@
 class Owner < ActiveRecord::Base
-  attr_protected :uid, :provider, :name
+#  attr_protected :uid, :provider, :name
   has_many :local_identities
   has_many :entities, :through => :local_identities
   def self.create_with_omniauth(auth)

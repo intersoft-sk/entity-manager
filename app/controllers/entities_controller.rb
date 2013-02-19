@@ -1,13 +1,15 @@
 # This file is app/controllers/entities_controller.rb
 class EntitiesController < ApplicationController
+	respond_to :html, :xml, :json
   def index
+  	@current_user ||= Owner.find_by_id(session[:user_id])
     @entities = Entity.order("description")
+    respond_with(@entities)
   end
   
   def get_by_alias
-    #until SSo wil be fixed   
-    owner = Owner.first
-    @entity = LocalIdentity.find_by_alias(params[:search_terms], owner.id)#session[:user_id])
+
+    @entity = LocalIdentity.find_by_alias(params[:search_terms], session[:user_id])
     
     unless @entity.nil?
       redirect_to entity_path(@entity) and return
@@ -38,7 +40,7 @@ class EntitiesController < ApplicationController
   def create              
     #raise params.inspect    
     new_params = {} # params for LocalID
-    owner = Owner.all[0];
+    owner = Owner.find_by_id(session[:user_id]);
     new_params.store("localid", params[:local_identities][:localid])
     new_params.store("description", params[:local_identities][:description])
     @localIdentity = LocalIdentity.create!(new_params)

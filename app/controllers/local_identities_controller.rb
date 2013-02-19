@@ -2,7 +2,6 @@ class LocalIdentitiesController < ApplicationController
   before_filter :has_owner_and_entity, :only => [:new, :create]
   protected
   def has_owner_and_entity
-  	@current_user = Owner.all[0] #just until SSO starts functioning
     unless @current_user
       flash[:warning] = 'You must be logged in to create a local identity.'
       redirect_to login_path
