@@ -4,15 +4,14 @@ describe EntitiesController do
   
   describe 'getting the Entity by local Alias' do
     before :each do
-      @fake_result = [mock('Entity')]
+      @fake_result = mock('Entity')
       @current_user = mock('Owner')
       @current_user.stub(:id).and_return('1')
-      Owner.stub(:first).and_return(@current_user)
-#      @session.stub(:[]).with(:user_id).and_return('1')
+      Owner.stub(:find_by_id).and_return(@current_user)
     end
     
     it 'should call the model method that performs Entity search' do
-      LocalIdentity.should_receive(:find_by_alias).with("Sensor 1", "1")
+      LocalIdentity.should_receive(:find_by_alias).with("Sensor 1", nil)
       post :get_by_alias, {:search_terms => 'Sensor 1'}
     end
     it 'should redirect to the Entity page' do
@@ -25,6 +24,20 @@ describe EntitiesController do
       post :get_by_alias, {:search_terms => 'Sensor 1'}
       assigns(:entity).should == @fake_result
     end
+  end
+  
+  describe 'registering Entity by rest api call - xml' do
+  	before :each do
+      @current_user = FactoryGirl.build(:owner)      
+		Owner.stub(:find_by_id).and_return(@current_user)
+    end
+    
+    it "creates a new Entity" do
+      expect{
+        post :create_xml, entity: FactoryGirl.attributes_for(:entity)
+      }.to change(Entity,:count).by(1)
+    end
+    
   end
 end
 

@@ -63,7 +63,7 @@ EntityManager::Application.routes.draw do
   end   
   
   # Route that posts 'Search by Alias' form
-  post '/entities/get_by_alias'  
+  post 'get_by_alias'  => 'entities#get_by_alias'
   
   match 'auth/:provider/callback' => 'sessions#create' #, :as => :login
 #  match 'auth/github/callback' => 'sessions#create', :as => :login2

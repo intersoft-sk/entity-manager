@@ -40,6 +40,7 @@ group :test do
   gem 'turn', :require => false
   gem 'cucumber-rails'
   gem 'minitest' #added based on error message after first run of cucumber
+  gem 'faker'
 end
 
 group :test, :development do  
