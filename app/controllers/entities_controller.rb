@@ -37,7 +37,7 @@ class EntitiesController < ApplicationController
     # default: render 'new' template
   end
 
-  def create              
+  def create                  
     #raise params.inspect    
     new_params = {} # params for LocalID
     owner = Owner.find_by_id(session[:user_id]);
@@ -55,6 +55,30 @@ class EntitiesController < ApplicationController
     @entity.local_identities << @localIdentity
     flash[:notice] = "'#{@entity.description}' was successfully registered."
     redirect_to entities_path
+  end
+  
+  def create_xml                 
+    #raise params.inspect    
+    new_params = {} # params for LocalID
+    owner = Owner.first;
+    new_params.store("localid", params[:localid])
+    new_params.store("description", params[:description])
+    @localIdentity = LocalIdentity.create!(new_params)
+    @localIdentity.owner = owner
+    new_params2 = {} #params for entity
+    new_params2.store("uuid", SecureRandom.uuid)
+    new_params2.store("schema", 'urn:entityID:')
+    #for now just copy the description of local identity
+    new_params2.store("description", params[:description])    
+    #raise new_params2.inspect
+    @entity = Entity.new(new_params2);
+    respond_to do |format|    
+    	if @entity.save
+    		format.xml {head :created, :location => @entity}
+    	else
+    		format.xml {render :xml => @entity.errors, :status => unprocessable_entity}
+    	end
+    end
   end
   
   def edit
