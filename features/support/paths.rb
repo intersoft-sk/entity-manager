@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^the Entity page/
       '/entity/:entity_id'  
       
+    when /^Search by Alias/
+      '/get_by_alias'  
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
