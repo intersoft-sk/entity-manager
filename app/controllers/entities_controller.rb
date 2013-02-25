@@ -58,13 +58,17 @@ class EntitiesController < ApplicationController
   end
   
   def create_xml                 
-    #raise params.inspect    
+    #raise params.inspect  
+    Rails.logger.debug 'create_xml'  
     new_params = {} # params for LocalID
     owner = Owner.first;
+    Rails.logger.debug owner.inspect
     new_params.store("localid", params[:localid])
     new_params.store("description", params[:description])
     @localIdentity = LocalIdentity.create!(new_params)
+    Rails.logger.debug @localIdentity.inspect
     @localIdentity.owner = owner
+    Rails.logger.debug @localIdentity.inspect
     new_params2 = {} #params for entity
     new_params2.store("uuid", SecureRandom.uuid)
     new_params2.store("schema", 'urn:entityID:')
@@ -72,6 +76,7 @@ class EntitiesController < ApplicationController
     new_params2.store("description", params[:description])    
     #raise new_params2.inspect
     @entity = Entity.new(new_params2);
+    Rails.logger.debug @entity.inspect
     respond_to do |format|    
     	if @entity.save
     		format.xml {head :created, :location => @entity}

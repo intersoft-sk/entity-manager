@@ -28,8 +28,8 @@ describe EntitiesController do
   
   describe 'registering Entity by rest api call - xml' do
   	before :each do
-      @current_user = FactoryGirl.build(:owner)      
-		Owner.stub(:find_by_id).and_return(@current_user)
+      @current_user2 = FactoryGirl.build(:owner)      
+		Owner.stub(:find_by_id).and_return(@current_user2)
     end
     
     it "creates a new Entity" do
