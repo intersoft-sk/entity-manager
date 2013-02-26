@@ -58,6 +58,8 @@ EntityManager::Application.routes.draw do
   
   root :to => redirect('/entities')
   
+  post '/entities.xml' => 'entities#create_xml', :defaults => { :format => 'xml' }
+  
   resources :entities do
   	resources :local_identities
   end   
@@ -67,9 +69,7 @@ EntityManager::Application.routes.draw do
   
   match 'auth/:provider/callback' => 'sessions#create' #, :as => :login
 #  match 'auth/github/callback' => 'sessions#create', :as => :login2
-  match 'logout' => 'sessions#destroy' #, :as => :logout
-  
-  post '/entities.xml' => 'entities#create_xml'
+  match 'logout' => 'sessions#destroy' #, :as => :logout   
 
 
 end
