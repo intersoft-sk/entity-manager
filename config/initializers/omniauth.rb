@@ -14,6 +14,8 @@ OmniAuth.config.logger = Rails.logger
 
 
 Rails.application.config.middleware.use OmniAuth::Builder do
+	provider :developer unless Rails.env.production?
   provider :github, '7a65508273ec80a93531', 'ea029fc08d9c60d9bb89650a2080e03f4a34241c'
   provider :google_oauth2, '939318209513.apps.googleusercontent.com', 'GRZJM66tGXRIAKJq87ZdHIP9', {access_type: 'online', approval_prompt: '', scope: 'userinfo.email,userinfo.profile,plus.me'} 
+  provider :linkedin, "ypl39nab6feq", "i84w5UjjN5cEhFOh"
 end

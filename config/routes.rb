@@ -68,7 +68,6 @@ EntityManager::Application.routes.draw do
   post 'get_by_alias'  => 'entities#get_by_alias'
   
   match 'auth/:provider/callback' => 'sessions#create' #, :as => :login
-#  match 'auth/github/callback' => 'sessions#create', :as => :login2
   match 'logout' => 'sessions#destroy' #, :as => :logout   
 
 

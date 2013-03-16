@@ -43,6 +43,15 @@ h1.title {
   font-size: 3em;
   font-style: normal;
 }
+p.login {
+  margin: 0 0 1em;
+  padding: 10px;
+  background-color: LightGreen;
+  color: black;
+  border-bottom: 2px solid green;
+  font-size: 1em;
+  font-style: bold;
+}
 table#entities {
   margin: 10px;
   border-collapse: collapse; 

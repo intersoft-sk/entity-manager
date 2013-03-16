@@ -27,4 +27,6 @@ EntityManager::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  OmniAuth.config.logger = Rails.logger
 end

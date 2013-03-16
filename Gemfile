@@ -5,7 +5,8 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-
+gem 'therubyracer', require: "v8"
+gem 'metric_fu'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,6 +24,7 @@ gem 'jquery-rails'
 #gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-github'
+gem 'omniauth-linkedin'
 
 gem 'factory_girl_rails'
 
