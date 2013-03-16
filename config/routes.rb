@@ -58,7 +58,7 @@ EntityManager::Application.routes.draw do
   
   root :to => redirect('/entities')
   
-  post '/entities.xml' => 'entities#create_xml', :defaults => { :format => 'xml' }
+#  post '/entities.xml' => 'entities#create_xml', :defaults => { :format => 'xml' }
   
   resources :entities do
   	resources :local_identities

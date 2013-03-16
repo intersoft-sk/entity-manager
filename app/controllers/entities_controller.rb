@@ -40,45 +40,56 @@ class EntitiesController < ApplicationController
   def create                  
     #raise params.inspect    
     new_params = {} # params for LocalID
-    owner = Owner.find_by_id(session[:user_id]);
-    new_params.store("localid", params[:local_identities][:localid])
-    new_params.store("description", params[:local_identities][:description])
+    respond_to do |format|
+      format.html { 
+        @owner = Owner.find_by_id(session[:user_id]) 
+        new_params.store("localid", params[:local_identities][:localid])
+        new_params.store("description", params[:local_identities][:description])
+        
+      }
+      format.xml {
+        @owner = Owner.find(params[:entity][:owner])
+        new_params.store("localid", params[:entity][:localid])
+        new_params.store("description", params[:entity][:description])
+      }
+    end    
+    
     @localIdentity = LocalIdentity.create!(new_params)
-    @localIdentity.owner = owner
+    @localIdentity.owner = @owner
     new_params2 = {} #params for entity
     new_params2.store("uuid", SecureRandom.uuid)
     new_params2.store("schema", 'urn:entityID:')
-    #for now just copy the description of local identity
-    new_params2.store("description", params[:local_identities][:description])    
+    
+    respond_to do |format|
+      format.html { 
+        #for now just copy the description of local identity
+        new_params2.store("description", params[:local_identities][:description])        
+      }
+      format.xml {
+        new_params2.store("description", params[:entity][:description])        
+      }
+    end        
     #raise new_params2.inspect
     @entity = Entity.create!(new_params2)
     @entity.local_identities << @localIdentity
-    flash[:notice] = "'#{@entity.description}' was successfully registered."
-    redirect_to entities_path
-  end
-  
-  def create_xml                 
-    #raise params.inspect  
-    new_params = {} # params for LocalID
-    owner = Owner.find(params[:entity][:owner]);
-    new_params.store("localid", params[:entity][:localid])
-    new_params.store("description", params[:entity][:description])
-  
-    @localIdentity = LocalIdentity.create!(new_params)
-    @localIdentity.owner = owner
-    new_params2 = {} #params for entity
-    new_params2.store("uuid", SecureRandom.uuid)
-    new_params2.store("schema", 'urn:entityID:')
-    #for now just copy the description of local identity
-    new_params2.store("description", params[:entity][:description])    
-    @entity = Entity.new(new_params2);
-   	@entity.save
-   	@entity.local_identities << @localIdentity
 
-    Rails.logger.debug @entity.inspect
-    
-   	respond_with @entity
+    respond_to do |format|
+      format.html { 
+        flash[:notice] = "'#{@entity.description}' was successfully registered."
+        redirect_to entities_path  
+        return      
+      }
+      format.xml {
+        respond_with @entity        
+      }
+    end           
   end
+  
+#        
+#    @entity = Entity.new(new_params2);
+#   	@entity.save
+#   	@entity.local_identities << @localIdentity
+
   
   def edit
     @entity = Entity.find_by_id(params[:id])

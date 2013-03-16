@@ -1,0 +1,5 @@
+create new entity:
+curl -d "entity[localid]=sensor1ab&entity[owner]=2&entity[description]=Some nice description." http://localhost:3000/entities.xml
+
+get all entities:
+curl http://localhost:3000/entities.xml
