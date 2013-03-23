@@ -13,7 +13,7 @@ Scenario: Try to add already existing entity (sad path)
 #  And I should see "Sensor 1 already exists!"
 
 
-#Scenario: Add an entity
+Scenario: Add an entity
 #  Given I am on the Entity Manager home page
 #  When I follow "Register new entity"
 #  Then I should be on the Register New Entity page
@@ -29,3 +29,4 @@ Scenario: view entity list after adding entities
 #  And   I am on the Entity Manager home page #sorted by description
 #  Then  I should see "Sensor 2" before "Sensor 3" on the Entity Manager home page
   
+Scenario: Adding and entity with unique EPC code

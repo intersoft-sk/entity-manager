@@ -85,11 +85,6 @@ class EntitiesController < ApplicationController
     end           
   end
   
-#        
-#    @entity = Entity.new(new_params2);
-#   	@entity.save
-#   	@entity.local_identities << @localIdentity
-
   
   def edit
     @entity = Entity.find_by_id(params[:id])
