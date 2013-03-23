@@ -1,15 +1,10 @@
 class LocalIdentitiesController < ApplicationController
   respond_to :html, :xml, :json
   before_filter :has_owner_and_entity, :only => [:new, :create]
-
-
-  class EntityManager::NotExistingEntity < Exception   
-  end
-  
+ 
   class EntityManager::LocalIDAlreadyUsed < Exception
   end
 
-  rescue_from EntityManager::NotExistingEntity, :with => :entity_not_found
   rescue_from EntityManager::LocalIDAlreadyUsed, :with => :localid_already_used
 
   
@@ -31,7 +26,7 @@ class LocalIdentitiesController < ApplicationController
           @current_user = Owner.anonymous
         end 
         unless (@entity = Entity.find_by_id(params[:entity_id]))
-          raise EntityManager::NotExistingEntity          
+          raise EntityManager::EntityNotFound          
         end        
       }
     end         

@@ -2,9 +2,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_current_user, :unless => :format_xml?, :except => [:index]
     
-  if (defined? ActiveRecord)
-    rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-  end
+  class EntityManager::EntityNotFound < Exception
+	end
+	class EntityManager::OwnerNotFound < Exception
+	end
+	rescue_from EntityManager::EntityNotFound, :with => :entity_not_found
+	rescue_from EntityManager::OwnerNotFound, :with => :owner_not_found
+
+#  if (defined? ActiveRecord)
+#    rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+#  end
    
   def format_xml?
     request.format.xml?
@@ -27,7 +34,11 @@ class ApplicationController < ActionController::Base
   end
   
   def entity_not_found(exception)
-    handle_error('Entity not found - can not create local alias.', :status => :not_found)
+    handle_error('Entity not found.', :status => :not_found)
+  end
+  
+  def owner_not_found(exception)
+    handle_error('Owner not found.', :status => :not_found)
   end
   
   def localid_already_used(exception)

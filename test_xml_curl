@@ -4,7 +4,7 @@ Operation: createIdentity(LocalID, Credentials): EbbitsID
 - http post operation with specified data - localid, owner, description; 
 - owner should be in form of id of existing registered user at running EM
 - curl test form:
-curl -d "entity[localid]=sensor1ab&entity[owner]=3&entity[description]=Some nice description." http://localhost:3000/entities.xml
+curl -d "localid=sensor1ab&owner=3&description=Some nice description." http://localhost:3000/entities.xml
 - Result:
 <?xml version="1.0" encoding="UTF-8"?>
 <entity>
@@ -83,6 +83,34 @@ or
 
 **************************************************************************
 Operation: getIdentityByAlias(LocalID, Credentials):EbbitsID
+- http post operation with specified data - owner (of the local alias), search_terms (will be matched against localid)
+- get entity by given alias and owner
+- curl test form:
+curl -d "search_terms=1abc&owner=3" http://localhost:3000/get_by_alias.xml
+- Result:
+<?xml version="1.0" encoding="UTF-8"?>
+<entity>
+  <id type="integer">11</id>
+  <uuid>bc573b60-1f52-4003-92b4-8863470b6119</uuid>
+  <description>Sensor nr. 1</description>
+  <created-at type="datetime">2013-02-27T14:57:27Z</created-at>
+  <updated-at type="datetime">2013-02-27T14:57:27Z</updated-at>
+  <schema>urn:entityID:</schema>
+</entity>
+
+or
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Entity not found.</error>
+</hash>
+
+or 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Owner not found.</error>
+</hash>
 **************************************************************************
 
 **************************************************************************

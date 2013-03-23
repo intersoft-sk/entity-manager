@@ -1,22 +1,36 @@
 # This file is app/controllers/entities_controller.rb
 class EntitiesController < ApplicationController
 	respond_to :html, :xml, :json
+		 
   def index
   	@current_user ||= Owner.find_by_id(session[:user_id])
     @entities = Entity.order("description")
     respond_with(@entities)
   end
   
-  def get_by_alias
-
-    @entity = LocalIdentity.find_by_alias(params[:search_terms], session[:user_id])
+  def get_by_alias    
+    respond_to do |format|
+      format.html {
+        @entity = LocalIdentity.find_by_alias(params[:search_terms], @current_user.id)
+        unless @entity.nil?
+          redirect_to entity_path(@entity) and return
+        end
+        flash[:notice] = "Entity with local alias '#{params[:search_terms]}' and owner '#{@current_user.name}' does not exist!"
+        redirect_to entities_path
+      }
+      format.xml {
+        unless (@user = Owner.find_by_id(params[:owner]))
+          raise EntityManager::OwnerNotFound
+        end 
+        @entity = LocalIdentity.find_by_alias(params[:search_terms], @user.id)
+        if @entity.nil?
+          raise EntityManager::EntityNotFound
+        else
+          respond_with @entity
+        end
+      }
+    end     
     
-    unless @entity.nil?
-      redirect_to entity_path(@entity) and return
-    end
-
-    flash[:notice] = "Entity with local alias '#{params[:search_terms]}' does not exist!"
-    redirect_to entities_path
   end
 
   def show
@@ -48,9 +62,9 @@ class EntitiesController < ApplicationController
         
       }
       format.xml {
-        @owner = Owner.find(params[:entity][:owner])
-        new_params.store("localid", params[:entity][:localid])
-        new_params.store("description", params[:entity][:description])
+        @owner = Owner.find(params[:owner])
+        new_params.store("localid", params[:localid])
+        new_params.store("description", params[:description])
       }
     end    
     
@@ -66,7 +80,7 @@ class EntitiesController < ApplicationController
         new_params2.store("description", params[:local_identities][:description])        
       }
       format.xml {
-        new_params2.store("description", params[:entity][:description])        
+        new_params2.store("description", params[:description])        
       }
     end        
     #raise new_params2.inspect
