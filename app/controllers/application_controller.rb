@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_current_user, :unless => :format_xml?, :except => [:index]
-  
-  rescue_from EntityManager::NotExistingEntity, :with => :entity_not_found
+    
   if (defined? ActiveRecord)
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   end
@@ -28,7 +27,11 @@ class ApplicationController < ActionController::Base
   end
   
   def entity_not_found(exception)
-    handle_error('Local ID must be for an existing entity.', :status => :not_found)
+    handle_error('Entity not found - can not create local alias.', :status => :not_found)
+  end
+  
+  def localid_already_used(exception)
+    handle_error('Local ID for selected entity already exists.', :status => :not_found)
   end
   
   def handle_error(message, params)

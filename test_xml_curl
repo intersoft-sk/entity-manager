@@ -49,7 +49,36 @@ curl http://localhost:3000/entities.xml
 
 **************************************************************************
 Operation: addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean
-curl -d "entity[owner]=3" http://localhost:3000/entities/11/local_identities/new.xml
+- add alias to an existing entity
+- http post operation with specified data - owner (of the local alias), localid, name, description;
+- curl test form:
+curl -d "owner=3&localid=1abc&name=temperature1abc&description=temperature sesor in the kitchen" http://localhost:3000/entities/12/local_identities.xml
+- Result:
+<?xml version="1.0" encoding="UTF-8"?>
+<local-identity>
+  <id type="integer">80</id>
+  <localid>1abc</localid>
+  <name>temperature1abc</name>
+  <owner-id type="integer">3</owner-id>
+  <description>temperature sesor in the kitchen</description>
+  <entity-id type="integer">12</entity-id>
+  <created-at type="datetime">2013-03-23T14:29:49Z</created-at>
+  <updated-at type="datetime">2013-03-23T14:29:49Z</updated-at>
+</local-identity>
+
+or 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Local ID for selected entity already exists.</error>
+</hash>
+
+or
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Entity not found - can not create local alias.</error>
+</hash>
 **************************************************************************
 
 **************************************************************************
