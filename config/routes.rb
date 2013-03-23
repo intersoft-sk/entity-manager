@@ -64,6 +64,8 @@ EntityManager::Application.routes.draw do
   	resources :local_identities
   end   
   
+  resources :local_identities
+  
   # Route that posts 'Search by Alias' form
   post 'get_by_alias'  => 'entities#get_by_alias'
   

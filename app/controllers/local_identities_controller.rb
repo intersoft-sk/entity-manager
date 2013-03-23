@@ -1,16 +1,34 @@
 class LocalIdentitiesController < ApplicationController
+  respond_to :html, :xml, :json
   before_filter :has_owner_and_entity, :only => [:new, :create]
+  
+  class EntityManager::NotExistingEntity < Exception   
+  end
+  
   protected
   def has_owner_and_entity
-    unless @current_user
-      flash[:warning] = 'You must be logged in to create a local identity.'
-      redirect_to login_path
-    end
-    unless (@entity = Entity.find_by_id(params[:entity_id]))
-      flash[:warning] = 'Local ID must be for an existing entity.'
-      redirect_to entities_path
-    end
+    respond_to do |format|
+      format.html { 
+        unless @current_user
+          flash[:warning] = 'You must be logged in to create a local identity.'
+          redirect_to login_path
+        end    
+        unless (@entity = Entity.find_by_id(params[:entity_id]))
+          flash[:warning] = 'Local ID must be for an existing entity.'
+          redirect_to entities_path
+        end    
+      }
+      format.xml {
+        unless (@current_user = Owner.find(params[:entity][:owner]))
+          @current_user = Owner.anonymous
+        end 
+        unless (@entity = Entity.find_by_id(params[:entity_id]))
+          raise EntityManager::NotExistingEntity          
+        end        
+      }
+    end         
   end
+  
   public
   def new
     @lid = @entity.local_identities.build
@@ -24,8 +42,16 @@ class LocalIdentitiesController < ApplicationController
     @lid = @entity.local_identities.build(params[:local_identities])
     @lid.owner = @current_user
     @lid.save!
-    flash[:notice] = "'#{@lid.name}' was successfully added."
-    redirect_to entity_path(@entity)
+    respond_to do |format|
+      format.html { 
+        flash[:notice] = "'#{@lid.name}' was successfully added."
+        redirect_to entity_path(@entity)
+        return
+      }
+      format.xml {
+        respond_with @lid
+      }
+    end
   end
   
   def destroy

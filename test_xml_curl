@@ -49,6 +49,7 @@ curl http://localhost:3000/entities.xml
 
 **************************************************************************
 Operation: addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean
+curl -d "entity[owner]=3" http://localhost:3000/entities/11/local_identities/new.xml
 **************************************************************************
 
 **************************************************************************
