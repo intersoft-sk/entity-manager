@@ -1,4 +1,5 @@
 # This file is app/controllers/entities_controller.rb
+
 class EntitiesController < ApplicationController
 	respond_to :html, :xml, :json
 		 
