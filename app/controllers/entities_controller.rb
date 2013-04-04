@@ -48,6 +48,17 @@ class EntitiesController < ApplicationController
     # will render app/views/entities/show.html.haml by default
   end
   
+  def getIdentity
+    uuid = params[:uuid] # retrieve internal entity ID from URI route
+    @entity = Entity.find_by_uuid(uuid) # look up entity by unique internal ID
+
+    if @entity == nil
+      raise EntityManager::EntityNotFound
+    else
+      respond_with @entity
+    end
+  end
+  
   def new
     # default: render 'new' template
   end
