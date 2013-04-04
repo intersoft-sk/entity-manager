@@ -67,6 +67,31 @@ class LocalIdentitiesController < ApplicationController
     end
   end
   
+  def addAliasToIdentity
+    uuid = params[:uuid] 
+    @entity = Entity.find_by_uuid(uuid) 
+
+    if @entity == nil
+      raise EntityManager::EntityNotFound    
+    end
+    
+    unless (@user = Owner.find_by_id(params[:owner]))
+      raise EntityManager::OwnerNotFound
+    end 
+    
+    params[:local_identities] = {:localid => params[:localid], :name => params[:name], :description => params[:description]}
+
+    if @entity.local_identities.where("localid = ? AND owner_id = ?", params[:local_identities][:localid], @user.id).size > 0
+      raise EntityManager::LocalIDAlreadyUsed
+    end
+    
+    @lid = @entity.local_identities.build(params[:local_identities])
+    @lid.owner = @user
+    @lid.save!
+    
+    respond_with @lid
+  end
+  
   def destroy
     @lid = LocalIdentity.find_by_id(params[:id])
     unless @lid.nil?

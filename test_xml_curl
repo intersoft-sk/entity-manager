@@ -82,6 +82,49 @@ or
 **************************************************************************
 
 **************************************************************************
+Operation: addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean 
+Version 2 - with uuid instead of id in the DB
+- add alias to an existing entity
+- http post operation with specified data - uuid, owner (of the local alias we are creating), localid, name, description;
+- curl test form:
+curl -d "uuid=bc573b60-1f52-4003-92b4-8863470b6119&localid=1abcd&owner=3&name=temperature1abcd&description=2nd temperature sesor in the kitchen" http://localhost:3000/addAliasToIdentity.xml
+- Result:
+<?xml version="1.0" encoding="UTF-8"?>
+<local-identity>
+  <id type="integer">85</id>
+  <localid>1abcd</localid>
+  <name>temperature1abcd</name>
+  <owner-id type="integer">3</owner-id>
+  <description>2nd temperature sesor in the kitchen</description>
+  <entity-id type="integer">11</entity-id>
+  <created-at type="datetime">2013-04-04T14:03:52Z</created-at>
+  <updated-at type="datetime">2013-04-04T14:03:52Z</updated-at>
+</local-identity>
+
+or 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Local ID for selected entity already exists.</error>
+</hash>
+
+or
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Entity not found.</error>
+</hash>
+
+or
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Owner not found.</error>
+</hash>
+**************************************************************************
+
+
+**************************************************************************
 Operation: getIdentityByAlias(LocalID, Credentials):EbbitsID
 - http post operation with specified data - owner (of the local alias), search_terms (will be matched against localid)
 - get entity by given alias and owner
@@ -116,7 +159,7 @@ or
 **************************************************************************
 Operation: getIdentity(UUID, Credentials):EbbitsID
 - http post operation with specified data - owner (who is asking), uuid (of searched entity)
-- get entity by given alias and owner
+- get entity by given uuid and owner
 - curl test form:
 curl -d "uuid=bc573b60-1f52-4003-92b4-8863470b6119&owner=3" http://localhost:3000/getIdentity.xml
 - Result:

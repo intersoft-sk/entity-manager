@@ -49,8 +49,8 @@ class EntitiesController < ApplicationController
   end
   
   def getIdentity
-    uuid = params[:uuid] # retrieve internal entity ID from URI route
-    @entity = Entity.find_by_uuid(uuid) # look up entity by unique internal ID
+    uuid = params[:uuid] 
+    @entity = Entity.find_by_uuid(uuid) 
 
     if @entity == nil
       raise EntityManager::EntityNotFound
