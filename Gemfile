@@ -29,6 +29,8 @@ gem 'omniauth-linkedin'
 
 gem 'factory_girl_rails'
 
+gem 'newrelic_rpm'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
