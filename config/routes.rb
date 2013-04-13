@@ -66,10 +66,16 @@ EntityManager::Application.routes.draw do
   
   resources :local_identities
   
+ 
   # Route that posts 'Search by Alias' form
   match 'get_by_alias'  => 'entities#get_by_alias'
   match 'getIdentity'  => 'entities#getIdentity'
+  match 'addRelation'  => 'relationships#create'
+  match 'getMasters'  => 'relationships#getMasters'
+  match 'getSlaves'  => 'relationships#getSlaves'  
+#  match 'removeRelation'  => 'entities#removeRelation'
   match 'addAliasToIdentity'  => 'local_identities#addAliasToIdentity'
+
   
   match 'auth/:provider/callback' => 'sessions#create' #, :as => :login
   match 'logout' => 'sessions#destroy' #, :as => :logout   

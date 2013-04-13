@@ -1,7 +1,9 @@
 class Entity < ActiveRecord::Base
   has_many :local_identities, :dependent => :destroy
   has_many :owners, :through => :local_identities  
-  has_many :elements, :class_name => "Entity", :foreign_key => "set_id"
-  belongs_to :set, :class_name => "Entity"
+  has_many :slavery, :class_name => "Relationship", :foreign_key => "master_id"
+  has_many :slaves, :through => :slavery, :source => :slave
+  has_many :mastery, :class_name => "Relationship", :foreign_key => "slave_id"
+  has_many :masters, :through => :mastery, :source => :master
   validates :uuid, :uniqueness => true
 end

@@ -29,8 +29,6 @@ gem 'omniauth-linkedin'
 
 gem 'factory_girl_rails'
 
-gem 'newrelic_rpm'
-
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -55,7 +53,8 @@ group :test, :development do
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
   gem 'ZenTest'
-  gem 'sqlite3' # use SQLite only in development and testing
+#  gem 'sqlite3' # use SQLite only in development and testing
+  gem 'pg'
   gem 'ruby-debug19' # use Ruby debugger
 end
 
@@ -64,4 +63,5 @@ gem 'haml'
 
 group :production do
   gem 'pg' # use PostgreSQL in production (Heroku)
+  gem 'newrelic_rpm'
 end

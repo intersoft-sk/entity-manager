@@ -10,7 +10,8 @@ arr.each do |x|
   end
   @id = h["CHRNumber"] + ':' + h["CKRNumber"] + ':' + h["CKRAdditionalNumber"]
   @descr = h["BirthDate"].tr('/\\', '') + ':' + h["RaceCode"] + ':' + h["CategoryCode"] + ':' + h["Ecological"]
-  system("curl -d \"localid=#{@id}&owner=3&description=#{@descr}\" http://entity-manager.herokuapp.com/entities.xml")
+#  system("curl -d \"localid=#{@id}&owner=3&description=#{@descr}\" http://entity-manager.herokuapp.com/entities.xml")
+  system("curl -d \"localid=#{@id}&owner=3&description=#{@descr}\" http://localhost:3000/entities.xml")
 end
 puts arr.length
 
