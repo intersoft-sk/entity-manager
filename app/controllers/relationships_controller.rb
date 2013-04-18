@@ -10,7 +10,7 @@ class RelationshipsController < ApplicationController
     if @entity_master == nil or @entity_slave == nil
       raise EntityManager::EntityNotFound
     else
-      @entity_master.slaves << @entity_slave            
+      @entity_master.slaves << @entity_slave unless @entity_master.slaves.where(uuid: @entity_slave.uuid).any?
       @slaves = @entity_master.slaves
       respond_with(@slaves) do |format|  
         format.xml { render :xml => @slaves }  
