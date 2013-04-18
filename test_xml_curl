@@ -287,11 +287,50 @@ Operation: removeRelation(EbbitsID, RelationType, Credentials):Boolean
 slave (uuid of the subpart entity that will be removed from given master)
 - remove relationship "slave" is part of "master" and returns array of all slaves for given master
 - curl test form:
-...
+FIRST addRelation:
+curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&slave=2663254d-bc92-4ba7-8b8b-e946b6d59a59&owner=3" http://localhost:3000/addRelation.xml
 - Result:
+<?xml version="1.0" encoding="UTF-8"?>
+<entities type="array">
+  <entity>
+    <id type="integer">3595</id>
+    <uuid>dcfb88fd-d3bf-492a-8c05-998659b47890</uuid>
+    <description>piece 1 for addRelation testing</description>
+    <created-at type="datetime">2013-04-13T10:24:44Z</created-at>
+    <updated-at type="datetime">2013-04-13T11:07:34Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+  <entity>
+    <id type="integer">3596</id>
+    <uuid>2663254d-bc92-4ba7-8b8b-e946b6d59a59</uuid>
+    <description>piece 2 for addRelation testing</description>
+    <created-at type="datetime">2013-04-13T10:25:03Z</created-at>
+    <updated-at type="datetime">2013-04-13T11:58:00Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+</entities>
+
+THEN:
+curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&slave=2663254d-bc92-4ba7-8b8b-e946b6d59a59&owner=3" http://localhost:3000/removeRelation.xml
+- Result:
+<?xml version="1.0" encoding="UTF-8"?>
+<entities type="array">
+  <entity>
+    <id type="integer">3595</id>
+    <uuid>dcfb88fd-d3bf-492a-8c05-998659b47890</uuid>
+    <description>piece 1 for addRelation testing</description>
+    <created-at type="datetime">2013-04-13T10:24:44Z</created-at>
+    <updated-at type="datetime">2013-04-13T11:07:34Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+</entities>
 
 or
 
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <error>Entity not found.</error>
+</hash>
 **************************************************************************
 
 **************************************************************************

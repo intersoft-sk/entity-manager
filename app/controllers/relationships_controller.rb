@@ -18,6 +18,23 @@ class RelationshipsController < ApplicationController
     end 
 	end
 	
+	def destroy	  
+    master_uuid = params[:master]
+    slave_uuid = params[:slave] 
+    @entity_master = Entity.find_by_uuid(master_uuid) 
+    @entity_slave = Entity.find_by_uuid(slave_uuid) 
+    
+    if @entity_master == nil or @entity_slave == nil
+      raise EntityManager::EntityNotFound
+    else
+      @entity_master.slaves.delete(@entity_slave) if @entity_master.slaves.where(uuid: @entity_slave.uuid).any?
+      @slaves = @entity_master.slaves
+      respond_with(@slaves) do |format|  
+        format.xml { render :xml => @slaves }  
+      end  
+    end 
+	end
+	
 	def getMasters
 	  uuid = params[:uuid]
     @entity = Entity.find_by_uuid(uuid) 
