@@ -48,8 +48,8 @@ curl http://localhost:3000/entities.xml
 **************************************************************************
 
 **************************************************************************
-Operation: addAliasToIdentity( Entity_UUID, LocalID, Credentials): LocalID
-- add alias to an existing entity
+Operation: addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean
+- add alias to an existing entity (restful operation using the entity ID given in DB)
 - http post operation with specified data - owner (of the local alias), localid, name, description;
 - curl test form:
 curl -d "owner=3&localid=1abc&name=temperature1abc&description=temperature sesor in the kitchen" http://localhost:3000/entities/12/local_identities.xml
@@ -82,7 +82,7 @@ or
 **************************************************************************
 
 **************************************************************************
-Operation: addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean 
+Operation: addAliasToIdentity( Entity_UUID, LocalID, Credentials): LocalID 
 Version 2 - with uuid instead of id in the DB
 - add alias to an existing entity
 - http post operation with specified data - uuid, owner (of the local alias we are creating), localid, name, description;
