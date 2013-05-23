@@ -1,0 +1,33 @@
+-# in app/views/relationships/getSlaves.html.haml
+= link_to 'Back to entity list', entities_path
+
+%h2 Slaves of #{@entity.uuid}
+
+%ul#details
+  %li
+    UUID:
+    = @entity.uuid
+  %li
+    Inserted on:
+    = @entity.created_at.strftime("%d. %B %Y, %H:%M:%S,%L %Z")
+
+%h3 Description:
+
+%p#description= @entity.description
+
+%h3 List of slaves for #{@entity.uuid}
+
+%table#slaves
+  %thead
+    %tr
+      %th Entity UUID
+      %th Description               
+  %tbody
+    - @slaves.each do |entity|
+      %tr
+        %td= entity.uuid 
+        %td= entity.description
+        %td= link_to "More about #{entity.uuid}", entity_path(entity)
+        
+
+

@@ -45,6 +45,7 @@ class RelationshipsController < ApplicationController
       @masters = @entity.masters 
       respond_with(@masters) do |format|  
         format.xml { render :xml => @masters }  
+        format.html {}
       end  
     end 
 	end
@@ -59,6 +60,7 @@ class RelationshipsController < ApplicationController
       @slaves = @entity.slaves 
       respond_with(@slaves) do |format|  
         format.xml { render :xml => @slaves }  
+        format.html {}
       end  
     end 
 	end

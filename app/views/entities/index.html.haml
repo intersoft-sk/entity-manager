@@ -19,6 +19,8 @@
       %th Description
       %th Details & Edit
       -#      %th Edit
+      %th Slaves
+      %th Masters
       %th Delete                  
   %tbody
     - @entities.each do |entity|
@@ -27,6 +29,8 @@
         %td= entity.description
         %td= link_to "More about #{entity.uuid}", entity_path(entity)
         -#        %td= link_to 'Edit', edit_entity_path(entity)
+        %td= link_to "List of slaves", getSlaves_path(:uuid => entity.uuid)
+        %td= link_to "List of masters", getMasters_path(:uuid => entity.uuid)
         %td= button_to 'Delete', entity_path(entity), :method => :delete, :confirm => 'Are you sure?'
         
 = paginate @entities
