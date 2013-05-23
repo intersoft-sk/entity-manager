@@ -8,6 +8,7 @@ gem 'rails', '3.1.12'
 
 gem 'therubyracer', require: "v8"
 gem 'metric_fu'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.

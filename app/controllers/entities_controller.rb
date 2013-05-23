@@ -4,8 +4,15 @@ class EntitiesController < ApplicationController
 	respond_to :html, :xml, :json
 		 
   def index
-  	@current_user ||= Owner.find_by_id(session[:user_id])
-    @entities = Entity.order("description")
+  	@current_user ||= Owner.find_by_id(session[:user_id])    
+    respond_to do |format|
+      format.html {
+        @entities = Entity.order("updated_at DESC").page(params[:page]).per(15)
+      }
+      format.xml {
+        @entities = Entity.order("updated_at DESC")
+      }
+    end
     respond_with(@entities)
   end
   

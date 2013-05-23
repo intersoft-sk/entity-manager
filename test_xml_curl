@@ -1,5 +1,5 @@
 **************************************************************************
-Operation: createIdentity(LocalID, Credentials): EbbitsID
+Operation: createIdentity( LocalID, Credentials): Entity
 - create new entity 
 - http post operation with specified data - localid, owner, description; 
 - owner should be in form of id of existing registered user at running EM
@@ -48,7 +48,7 @@ curl http://localhost:3000/entities.xml
 **************************************************************************
 
 **************************************************************************
-Operation: addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean
+Operation: addAliasToIdentity( Entity_UUID, LocalID, Credentials): LocalID
 - add alias to an existing entity
 - http post operation with specified data - owner (of the local alias), localid, name, description;
 - curl test form:
@@ -125,7 +125,7 @@ or
 
 
 **************************************************************************
-Operation: getIdentityByAlias(LocalID, Credentials):EbbitsID
+Operation: getIdentityByAlias( LocalID, Credentials): Entity
 - http post operation with specified data - owner (of the local alias), search_terms (will be matched against localid)
 - get entity by given alias and owner
 - curl test form:
@@ -157,7 +157,7 @@ or
 **************************************************************************
 
 **************************************************************************
-Operation: getIdentity(UUID, Credentials):EbbitsID
+Operation: getIdentity( Entity_UUID, Credentials): Entity
 - http post operation with specified data - owner (who is asking), uuid (of searched entity)
 - get entity by given uuid and owner
 - curl test form:
@@ -182,7 +182,7 @@ or
 **************************************************************************
 
 **************************************************************************
-Operation: addRelation(EbbitsID, RelationType, Credentials):Boolean
+Operation: addRelation( UUID_master, UUID_slave, Credentials): Array of Entities (slaves)
 - http post operation with specified data - owner (who is asking), master (uuid of the main entity),
 slave (uuid of the to be part entity)
 - add relationship "slave" is part of "master" and returns array of all slaves for given master
@@ -220,7 +220,7 @@ or
 **************************************************************************
 
 **************************************************************************
-Operation: getMasters(uuid):array of entities
+Operation: getMasters( Entity_UUID): Array of Entities
 - http post operation with specified data - owner (who is asking), uuid (uuid of the entity for which we search the masters)
 - getting array of entities, which are in the master position to the given entity by uuid
 - curl test form:
@@ -247,7 +247,7 @@ or
 **************************************************************************
 
 **************************************************************************
-Operation: getSlaves(uuid):array of entities
+Operation: getSlaves( Entity_UUID): Array of Entities
 - http post operation with specified data - owner (who is asking), uuid (uuid of the entity for which we search the slaves)
 - getting array of entities, which are in the slave position to the given entity by uuid
 - curl test form:
@@ -282,7 +282,7 @@ or
 **************************************************************************
 
 **************************************************************************
-Operation: removeRelation(EbbitsID, RelationType, Credentials):Boolean
+Operation: removeRelation( UUID_master, UUID_slave, Credentials): Array of Entities (slaves)
 - http post operation with specified data - owner (who is asking), master (uuid of the main entity),
 slave (uuid of the subpart entity that will be removed from given master)
 - remove relationship "slave" is part of "master" and returns array of all slaves for given master
