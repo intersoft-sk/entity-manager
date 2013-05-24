@@ -1,14 +1,30 @@
 -#  This file is app/views/entities/index.html.haml
 = link_to 'Register new entity', new_entity_path
 
-%h2 Get Identity by local alias
+%h2 Get Entity by local alias
 
 = form_tag :action => 'get_by_alias' do
+  %table
+    %tbody      
+      %tr
+        %td 
+          %label{:for => 'search_terms'} Search Terms
+        %td= text_field_tag 'search_terms'
+        %td
+          %label{:for => 'owner'} Owner ID 
+        %td= text_field_tag 'owner', value = @current_user.id, :size => 3
+        %td= submit_tag 'Search by Alias'
 
-  %label{:for => 'search_terms'} Search Terms
-  = text_field_tag 'search_terms'
-  = submit_tag 'Search by Alias'
+%h2 Get Entity by UUID
 
+= form_tag :action => 'getIdentity' do
+  %table
+    %tbody      
+      %tr
+        %td
+          %label{:for => 'uuid'} UUID for lookup
+        %td= text_field_tag 'uuid', value = nil, :size => 27
+        %td= submit_tag 'Search by UUID'
 
 %h2 All Entities
 

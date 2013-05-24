@@ -19,11 +19,18 @@ class EntitiesController < ApplicationController
   def get_by_alias    
     respond_to do |format|
       format.html {
-        @entity = LocalIdentity.find_by_alias(params[:search_terms], @current_user.id)
-        unless @entity.nil?
+        @owner = Owner.find_by_id(params[:owner])
+        p @owner.inspect
+        @entity = LocalIdentity.find_by_alias(params[:search_terms], @owner.id)
+        p @entity.inspect
+        unless @entity.nil? or @owner.nil?
           redirect_to entity_path(@entity) and return
         end
-        flash[:notice] = "Entity with local alias '#{params[:search_terms]}' and owner '#{@current_user.name}' does not exist!"
+        if @owner.nil?
+          flash[:notice] = "Unknown owner"
+        else   
+          flash[:notice] = "Entity with local alias '#{params[:search_terms]}' and owner '#{params[:owner]}' does not exist!"
+        end
         redirect_to entities_path
       }
       format.xml {
@@ -60,10 +67,18 @@ class EntitiesController < ApplicationController
     @entity = Entity.find_by_uuid(uuid) 
 
     if @entity == nil
-      raise EntityManager::EntityNotFound
+      respond_to do |format|
+        format.html {
+          flash[:notice] = "Entity with uuid '#{params[:uuid]}' does not exist!"        
+          redirect_to entities_path
+        }
+        format.xml {
+          raise EntityManager::EntityNotFound
+        }
+      end 
     else
       respond_with @entity
-    end
+    end                 
   end
   
   def new
