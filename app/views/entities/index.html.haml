@@ -12,7 +12,9 @@
         %td= text_field_tag 'search_terms'
         %td
           %label{:for => 'owner'} Owner ID 
-        %td= text_field_tag 'owner', value = @current_user.id, :size => 3
+        %td
+          - if @current_user.nil? then ownerID=nil else ownerID=@current_user.id end
+          = text_field_tag 'owner', value = ownerID, :size => 3
         %td= submit_tag 'Search by Alias'
 
 %h2 Get Entity by UUID
