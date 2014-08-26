@@ -43,7 +43,7 @@ gem 'factory_girl_rails'
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'minitest' #added based on error message after first run of cucumber
   gem 'faker'
 end
@@ -57,7 +57,10 @@ group :test, :development do
   gem 'ZenTest'
 #  gem 'sqlite3' # use SQLite only in development and testing
   gem 'pg'
-  gem 'ruby-debug19' # use Ruby debugger
+#  gem 'ruby-debug19' # use Ruby debugger
+  gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
+  gem 'ruby-debug-base19x', '~> 0.11.30.pre4'
+  gem 'ruby-debug19'
 end
 
 # use Haml for templates
