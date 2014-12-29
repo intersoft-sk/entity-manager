@@ -54,13 +54,13 @@ group :test, :development do
   gem 'capybara'         # lets Cucumber pretend to be a web browser
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
-  gem 'ZenTest'
+#  gem 'ZenTest'
 #  gem 'sqlite3' # use SQLite only in development and testing
   gem 'pg'
 #  gem 'ruby-debug19' # use Ruby debugger
-  gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
-  gem 'ruby-debug-base19x', '~> 0.11.30.pre4'
-  gem 'ruby-debug19'
+#  gem 'linecache19'     #'linecache19', :git => 'git://github.com/mark-moseley/linecache'
+#  gem 'ruby-debug-base19x', '~> 0.11.30.pre4'
+#  gem 'ruby-debug19'
 end
 
 # use Haml for templates
