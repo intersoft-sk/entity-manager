@@ -73,7 +73,9 @@ EntityManager::Application.routes.draw do
   match 'addRelation'  => 'relationships#create'
   match 'removeRelation'  => 'relationships#destroy'
   match 'getMasters'  => 'relationships#getMasters'
-  match 'getSlaves'  => 'relationships#getSlaves'  
+  match 'relationships/getMasters'  => 'relationships#getMasters'
+  match 'getSlaves'  => 'relationships#getSlaves'
+  match 'relationships/getSlaves'  => 'relationships#getSlaves'    
 #  match 'removeRelation'  => 'entities#removeRelation'
   match 'addAliasToIdentity'  => 'local_identities#addAliasToIdentity'
 

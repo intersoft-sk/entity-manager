@@ -8,3 +8,6 @@ config/database.yml
 server/*
 Gemfile~
 .project
+.ruby-version
+.ruby-gemset
+
