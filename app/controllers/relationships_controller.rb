@@ -50,6 +50,23 @@ class RelationshipsController < ApplicationController
     end 
 	end
 	
+	def getAllMasters
+    uuid = params[:uuid]
+    range = params[:range].to_i
+    @entity = Entity.find_by_uuid(uuid)     
+    
+    if @entity == nil 
+      raise EntityManager::EntityNotFound
+    else      
+      @result = @entity.getAllMasters(range)
+      
+      respond_with(@result) do |format|  
+        format.xml { render :xml => @result }  
+        format.html {}
+      end  
+    end 
+  end
+	
 	def getSlaves
 	  uuid = params[:uuid]
     @entity = Entity.find_by_uuid(uuid) 
@@ -65,4 +82,21 @@ class RelationshipsController < ApplicationController
     end 
 	end
 	
+	def getAllSlaves
+    uuid = params[:uuid]
+    range = params[:range].to_i
+    @entity = Entity.find_by_uuid(uuid)     
+    
+    if @entity == nil 
+      raise EntityManager::EntityNotFound
+    else      
+      @result = @entity.getAllSlaves(range)
+      
+      respond_with(@result) do |format|  
+        format.xml { render :xml => @result }  
+        format.html {}
+      end  
+    end 
+  end
+  
 end

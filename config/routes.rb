@@ -78,7 +78,8 @@ EntityManager::Application.routes.draw do
   match 'relationships/getSlaves'  => 'relationships#getSlaves'    
 #  match 'removeRelation'  => 'entities#removeRelation'
   match 'addAliasToIdentity'  => 'local_identities#addAliasToIdentity'
-
+  match 'getAllMasters'  => 'relationships#getAllMasters'
+  match 'getAllSlaves'  => 'relationships#getAllSlaves'
   
   match 'auth/:provider/callback' => 'sessions#create' #, :as => :login
   match 'logout' => 'sessions#destroy' #, :as => :logout   
