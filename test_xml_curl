@@ -414,9 +414,51 @@ of the graph depth
 - getting array of entities, which are in the child position to the given entity by uuid -
 either direct (range == 1) or indirect (range > 1)
 - curl test form:
-curl -d "uuid=a195d2e5-8939-4736-b119-264181baa62f&range=-1&owner=3" http://localhost:3000/getAllMasters.xml
-- Result:
 curl -d "uuid=c04d1fec-2e1c-40fe-837a-e83c89dafdcb&range=-1&owner=3" http://localhost:3000/getAllSlaves.xml
+- Result:
+<?xml version="1.0" encoding="UTF-8"?>
+<entities type="array">
+  <entity>
+    <id type="integer">7</id>
+    <uuid>62b6250d-3046-4152-9530-734d25480d26</uuid>
+    <description>description for entity 62b6250d-3046-4152-9530-734d25480d26</description>
+    <created-at type="datetime">2014-12-29T12:32:06Z</created-at>
+    <updated-at type="datetime">2014-12-29T12:32:06Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+  <entity>
+    <id type="integer">10</id>
+    <uuid>56ad9235-a166-4bd2-b7b7-af7a3f5d86d5</uuid>
+    <description>description for entity 56ad9235-a166-4bd2-b7b7-af7a3f5d86d5</description>
+    <created-at type="datetime">2014-12-29T12:32:06Z</created-at>
+    <updated-at type="datetime">2014-12-29T12:32:06Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+  <entity>
+    <id type="integer">12</id>
+    <uuid>c04d1fec-2e1c-40fe-837a-e83c89dafdcb</uuid>
+    <description>entita pre pokus2</description>
+    <created-at type="datetime">2014-12-29T12:34:27Z</created-at>
+    <updated-at type="datetime">2014-12-29T12:34:27Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+  <entity>
+    <id type="integer">11</id>
+    <uuid>97e6572a-9648-4e3f-98ac-ddab41b93a72</uuid>
+    <description>entita pre pokus1</description>
+    <created-at type="datetime">2014-12-29T12:32:57Z</created-at>
+    <updated-at type="datetime">2014-12-29T12:32:57Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+  <entity>
+    <id type="integer">9</id>
+    <uuid>0b0b2dee-4440-46af-9b22-0419be75a932</uuid>
+    <description>description for entity 0b0b2dee-4440-46af-9b22-0419be75a932</description>
+    <created-at type="datetime">2014-12-29T12:32:06Z</created-at>
+    <updated-at type="datetime">2014-12-29T12:32:06Z</updated-at>
+    <schema>urn:entityID:</schema>
+  </entity>
+</entities>
 
 
 or 
