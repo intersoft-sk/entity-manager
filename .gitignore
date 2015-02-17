@@ -1,0 +1,10 @@
+.bundle/
+.project
+.ruby-gemset
+.ruby-version
+config/
+db/
+log/
+server/
+tmp/
+
