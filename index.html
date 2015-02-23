@@ -44,7 +44,7 @@
 <a id="entity-manager-supports-the-following-api" class="anchor" href="#entity-manager-supports-the-following-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entity Manager supports the following API:</h2>
 
 <h2>
-<a id="entity-createidentity-localid-description-credentials" class="anchor" href="#entity-createidentity-localid-description-credentials" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Entity createIdentity( localID, description, credentials)</code>
+<a id="createidentity-localid-credentials-entity" class="anchor" href="#createidentity-localid-credentials-entity" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>createIdentity( LocalID, Credentials): Entity</code>
 </h2>
 
 <p>Based on local identifier, credentials identifying an owner (i.e. stakeholder in an IoT application) and entity’s description, the call creates new entity with world-wide unique identifier that is randomly generated.</p>
@@ -80,6 +80,66 @@
   &lt;updated-at type="datetime"&gt;2013-03-23T07:49:38Z&lt;/updated-at&gt;
   &lt;schema&gt;urn:entityID:&lt;/schema&gt;
 &lt;/entity&gt;
+</code></pre>
+
+<h2>
+<a id="addaliastoidentityebbitsid-localid-credentialsboolean" class="anchor" href="#addaliastoidentityebbitsid-localid-credentialsboolean" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean</code>
+</h2>
+
+<p>Adds alias to an existing entity (restful operation using the entity ID given in DB).</p>
+
+<h3>
+<a id="parameters-1" class="anchor" href="#parameters-1" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>Entity_UUID</em>  The unique identifier of the entity, to which an alias is being added.</p>
+
+<p><em>localID</em> The local identifier of an entity.</p>
+
+<p><em>name</em> The local name of an entity.</p>
+
+<p><em>description</em> Basic textual description of registered alias.</p>
+
+<p><em>credentials</em> Data necessary for identification and authorization of authority that is registering a new alias for an entity.</p>
+
+<h3>
+<a id="returns-1" class="anchor" href="#returns-1" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the successfully registered alias data element or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-1" class="anchor" href="#example-of-the-request-and-result-1" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "owner=3&amp;localid=1abc&amp;name=temperature1abc&amp;description=temperature sesor in the kitchen" http://localhost:3000/entities/12/local_identities.xml
+
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;local-identity&gt;
+  &lt;id type="integer"&gt;80&lt;/id&gt;
+  &lt;localid&gt;1abc&lt;/localid&gt;
+  &lt;name&gt;temperature1abc&lt;/name&gt;
+  &lt;owner-id type="integer"&gt;3&lt;/owner-id&gt;
+  &lt;description&gt;temperature sesor in the kitchen&lt;/description&gt;
+  &lt;entity-id type="integer"&gt;12&lt;/entity-id&gt;
+  &lt;created-at type="datetime"&gt;2013-03-23T14:29:49Z&lt;/created-at&gt;
+  &lt;updated-at type="datetime"&gt;2013-03-23T14:29:49Z&lt;/updated-at&gt;
+&lt;/local-identity&gt;
+
+or 
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Local ID for selected entity already exists.&lt;/error&gt;
+&lt;/hash&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found - can not create local alias.&lt;/error&gt;
+&lt;/hash&gt;
 </code></pre>
       </section>
       <footer>
