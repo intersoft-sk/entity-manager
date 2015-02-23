@@ -257,6 +257,280 @@ or
   &lt;error&gt;Owner not found.&lt;/error&gt;
 &lt;/hash&gt;
 </code></pre>
+
+<h2>
+<a id="getidentity-entity_uuid-credentials-entity" class="anchor" href="#getidentity-entity_uuid-credentials-entity" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getIdentity( Entity_UUID, Credentials): Entity</code>
+</h2>
+
+<p>Get entity by given uuid and owner.</p>
+
+<h3>
+<a id="parameters-4" class="anchor" href="#parameters-4" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>Entity_UUID</em>  The unique identifier of the entity we are looking for.</p>
+
+<p><em>credentials</em> Data necessary for identification and authorization of authority that is looking for an entity.</p>
+
+<h3>
+<a id="returns-4" class="anchor" href="#returns-4" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of found entity data element or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-4" class="anchor" href="#example-of-the-request-and-result-4" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "uuid=bc573b60-1f52-4003-92b4-8863470b6119&amp;owner=3" http://localhost:3000/getIdentity.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entity&gt;
+  &lt;id type="integer"&gt;11&lt;/id&gt;
+  &lt;uuid&gt;bc573b60-1f52-4003-92b4-8863470b6119&lt;/uuid&gt;
+  &lt;description&gt;Sensor nr. 1&lt;/description&gt;
+  &lt;created-at type="datetime"&gt;2013-02-27T14:57:27Z&lt;/created-at&gt;
+  &lt;updated-at type="datetime"&gt;2013-02-27T14:57:27Z&lt;/updated-at&gt;
+  &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+&lt;/entity&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
+
+<h2>
+<a id="addrelation-uuid_master-uuid_slave-credentials-array-of-entities-slaves" class="anchor" href="#addrelation-uuid_master-uuid_slave-credentials-array-of-entities-slaves" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>addRelation( UUID_master, UUID_slave, Credentials): Array of Entities (slaves)</code>
+</h2>
+
+<p>Add relationship "slave" (uniquely identified by UUID_slave) is part of "master" (uniquely identified by UUID_master) and returns array of all slaves for given master.</p>
+
+<h3>
+<a id="parameters-5" class="anchor" href="#parameters-5" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>UUID_master</em>  The unique identifier of the entity, to which an slave is being added.</p>
+
+<p><em>UUID_slave</em> The unique identifier of the entity, which will be in relation is-part-of with entity identified by UUID_master.</p>
+
+<p><em>Credentials</em> Data necessary for identification and authorization of authority that is registering a new relation.</p>
+
+<h3>
+<a id="returns-5" class="anchor" href="#returns-5" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the array of all slaves for given master entity in case of success or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-5" class="anchor" href="#example-of-the-request-and-result-5" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=dcfb88fd-d3bf-492a-8c05-998659b47890&amp;owner=3" http://localhost:3000/addRelation.xml
+_and after that_
+curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=2663254d-bc92-4ba7-8b8b-e946b6d59a59&amp;owner=3" http://localhost:3000/addRelation.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entities type="array"&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;3595&lt;/id&gt;
+    &lt;uuid&gt;dcfb88fd-d3bf-492a-8c05-998659b47890&lt;/uuid&gt;
+    &lt;description&gt;piece 1 for addRelation testing&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T10:24:44Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T11:07:34Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;3596&lt;/id&gt;
+    &lt;uuid&gt;2663254d-bc92-4ba7-8b8b-e946b6d59a59&lt;/uuid&gt;
+    &lt;description&gt;piece 2 for addRelation testing&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T10:25:03Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T11:58:00Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+&lt;/entities&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
+
+<h2>
+<a id="getmasters-entity_uuid-array-of-entities" class="anchor" href="#getmasters-entity_uuid-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getMasters( Entity_UUID): Array of Entities</code>
+</h2>
+
+<p>Getting array of entities, which are in the master relation to the by UUID given entity.</p>
+
+<h3>
+<a id="parameters-6" class="anchor" href="#parameters-6" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>Entity_UUID</em> The unique identifier of the entity, which is part-of entities we are looking for (i.e. its masters).</p>
+
+<p><em>Credentials</em> Data necessary for identification and authorization of authority that is searching for masters of given entity.</p>
+
+<h3>
+<a id="returns-6" class="anchor" href="#returns-6" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the array of all masters for given slave entity in case of success or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-6" class="anchor" href="#example-of-the-request-and-result-6" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "uuid=dcfb88fd-d3bf-492a-8c05-998659b47890&amp;owner=3" http://localhost:3000/getMasters.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entities type="array"&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;2787&lt;/id&gt;
+    &lt;uuid&gt;e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&lt;/uuid&gt;
+    &lt;description&gt;Date(1003528800000):LIM:75:false&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T09:37:16Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T09:37:16Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+&lt;/entities&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
+
+<h2>
+<a id="getslaves-entity_uuid-array-of-entities" class="anchor" href="#getslaves-entity_uuid-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getSlaves( Entity_UUID): Array of Entities</code>
+</h2>
+
+<p>Getting array of entities, which are in the slave relation to the by UUID given entity.</p>
+
+<h3>
+<a id="parameters-7" class="anchor" href="#parameters-7" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>Entity_UUID</em> The unique identifier of the entity, which is master of all entities we are looking for (i.e. its slaves).</p>
+
+<p><em>Credentials</em> Data necessary for identification and authorisation of authority that is searching for slaves of given entity.</p>
+
+<h3>
+<a id="returns-7" class="anchor" href="#returns-7" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the array of all slaves for given master entity in case of success or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-7" class="anchor" href="#example-of-the-request-and-result-7" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "uuid=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;owner=3" http://localhost:3000/getSlaves.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entities type="array"&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;3595&lt;/id&gt;
+    &lt;uuid&gt;dcfb88fd-d3bf-492a-8c05-998659b47890&lt;/uuid&gt;
+    &lt;description&gt;piece 1 for addRelation testing&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T10:24:44Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T11:07:34Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;3596&lt;/id&gt;
+    &lt;uuid&gt;2663254d-bc92-4ba7-8b8b-e946b6d59a59&lt;/uuid&gt;
+    &lt;description&gt;piece 2 for addRelation testing&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T10:25:03Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T11:58:00Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+&lt;/entities&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
+
+<h2>
+<a id="removerelation-uuid_master-uuid_slave-credentials-array-of-entities-slaves" class="anchor" href="#removerelation-uuid_master-uuid_slave-credentials-array-of-entities-slaves" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>removeRelation( UUID_master, UUID_slave, Credentials): Array of Entities (slaves)</code>
+</h2>
+
+<p>Remove relationship "slave" is part of "master" and returns array of all slaves for given master.</p>
+
+<h3>
+<a id="parameters-8" class="anchor" href="#parameters-8" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>UUID_master</em> The unique identifier of the entity, which is master part of the relation to be removed.</p>
+
+<p><em>UUID_slave</em> The unique identifier of the entity, which is slave part of the relation to be removed.</p>
+
+<p><em>Credentials</em> Data necessary for identification and authorisation of authority that is removing the existing relation.</p>
+
+<h3>
+<a id="returns-8" class="anchor" href="#returns-8" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the array of all slaves for given master entity in case of success or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-8" class="anchor" href="#example-of-the-request-and-result-8" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>_FIRST addRelation:_
+curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=2663254d-bc92-4ba7-8b8b-e946b6d59a59&amp;owner=3" http://localhost:3000/addRelation.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entities type="array"&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;3595&lt;/id&gt;
+    &lt;uuid&gt;dcfb88fd-d3bf-492a-8c05-998659b47890&lt;/uuid&gt;
+    &lt;description&gt;piece 1 for addRelation testing&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T10:24:44Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T11:07:34Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;3596&lt;/id&gt;
+    &lt;uuid&gt;2663254d-bc92-4ba7-8b8b-e946b6d59a59&lt;/uuid&gt;
+    &lt;description&gt;piece 2 for addRelation testing&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T10:25:03Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T11:58:00Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+&lt;/entities&gt;
+
+_THEN:_
+curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=2663254d-bc92-4ba7-8b8b-e946b6d59a59&amp;owner=3" http://localhost:3000/removeRelation.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entities type="array"&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;3595&lt;/id&gt;
+    &lt;uuid&gt;dcfb88fd-d3bf-492a-8c05-998659b47890&lt;/uuid&gt;
+    &lt;description&gt;piece 1 for addRelation testing&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2013-04-13T10:24:44Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2013-04-13T11:07:34Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+&lt;/entities&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
       </section>
     </div>
     <footer>
