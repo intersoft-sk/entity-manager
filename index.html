@@ -7,20 +7,19 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
   <body>
     <div class="wrapper">
-      <header>
+      <header class="without-description">
         <h1>Entity-manager</h1>
         <p></p>
-
         <p class="view"><a href="https://github.com/intersoft-sk/entity-manager">View the Project on GitHub <small>intersoft-sk/entity-manager</small></a></p>
-
-
         <ul>
           <li><a href="https://github.com/intersoft-sk/entity-manager/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/intersoft-sk/entity-manager/tarball/master">Download <strong>TAR Ball</strong></a></li>
@@ -83,18 +82,18 @@
 </code></pre>
 
 <h2>
-<a id="addaliastoidentityebbitsid-localid-credentialsboolean" class="anchor" href="#addaliastoidentityebbitsid-localid-credentialsboolean" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>addAliasToIdentity(EbbitsID, LocalID, Credentials):Boolean</code>
+<a id="addaliastoidentityebbitsid-localid-name-description-credentialsboolean" class="anchor" href="#addaliastoidentityebbitsid-localid-name-description-credentialsboolean" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>addAliasToIdentity(EbbitsID, LocalID, name, description, Credentials):Boolean</code>
 </h2>
 
-<p>Adds alias to an existing entity (restful operation using the entity ID given in DB).</p>
+<p>Adds alias to an existing entity - restful operation using the entity ID given in DB.</p>
 
 <h3>
 <a id="parameters-1" class="anchor" href="#parameters-1" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
 </h3>
 
-<p><em>Entity_UUID</em>  The unique identifier of the entity, to which an alias is being added.</p>
+<p><em>EbbitsID</em>  The ID given in DB of the entity, to which an alias is being added.</p>
 
-<p><em>localID</em> The local identifier of an entity.</p>
+<p><em>LocalID</em> The local identifier of an entity.</p>
 
 <p><em>name</em> The local name of an entity.</p>
 
@@ -112,7 +111,7 @@
 <a id="example-of-the-request-and-result-1" class="anchor" href="#example-of-the-request-and-result-1" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
 </h3>
 
-<pre><code>curl -d "owner=3&amp;localid=1abc&amp;name=temperature1abc&amp;description=temperature sesor in the kitchen" http://localhost:3000/entities/12/local_identities.xml
+<pre><code>curl -d "owner=3&amp;localid=1abc&amp;name=temperature1abc&amp;description=temperature sensor in the kitchen" http://localhost:3000/entities/12/local_identities.xml
 
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -121,7 +120,7 @@
   &lt;localid&gt;1abc&lt;/localid&gt;
   &lt;name&gt;temperature1abc&lt;/name&gt;
   &lt;owner-id type="integer"&gt;3&lt;/owner-id&gt;
-  &lt;description&gt;temperature sesor in the kitchen&lt;/description&gt;
+  &lt;description&gt;temperature sensor in the kitchen&lt;/description&gt;
   &lt;entity-id type="integer"&gt;12&lt;/entity-id&gt;
   &lt;created-at type="datetime"&gt;2013-03-23T14:29:49Z&lt;/created-at&gt;
   &lt;updated-at type="datetime"&gt;2013-03-23T14:29:49Z&lt;/updated-at&gt;
@@ -141,13 +140,130 @@ or
   &lt;error&gt;Entity not found - can not create local alias.&lt;/error&gt;
 &lt;/hash&gt;
 </code></pre>
+
+<h2>
+<a id="addaliastoidentity-entity_uuid-localid-name-description-credentials-localid" class="anchor" href="#addaliastoidentity-entity_uuid-localid-name-description-credentials-localid" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>addAliasToIdentity( Entity_UUID, LocalID, name, description, Credentials): LocalID</code>
+</h2>
+
+<p>Adds alias to an existing entity - restful operation using the uuid instead of id in the DB.</p>
+
+<h3>
+<a id="parameters-2" class="anchor" href="#parameters-2" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>Entity_UUID</em>  The unique identifier of the entity, to which an alias is being added.</p>
+
+<p><em>localID</em> The local identifier of an entity.</p>
+
+<p><em>name</em> The local name of an entity.</p>
+
+<p><em>description</em> Basic textual description of registered alias.</p>
+
+<p><em>credentials</em> Data necessary for identification and authorization of authority that is registering a new alias for an entity.</p>
+
+<h3>
+<a id="returns-2" class="anchor" href="#returns-2" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the successfully registered alias data element or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-2" class="anchor" href="#example-of-the-request-and-result-2" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "uuid=bc573b60-1f52-4003-92b4-8863470b6119&amp;localid=1abcd&amp;owner=3&amp;name=temperature1abcd&amp;description=2nd temperature sesor in the kitchen" http://localhost:3000/addAliasToIdentity.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;local-identity&gt;
+  &lt;id type="integer"&gt;85&lt;/id&gt;
+  &lt;localid&gt;1abcd&lt;/localid&gt;
+  &lt;name&gt;temperature1abcd&lt;/name&gt;
+  &lt;owner-id type="integer"&gt;3&lt;/owner-id&gt;
+  &lt;description&gt;2nd temperature sesor in the kitchen&lt;/description&gt;
+  &lt;entity-id type="integer"&gt;11&lt;/entity-id&gt;
+  &lt;created-at type="datetime"&gt;2013-04-04T14:03:52Z&lt;/created-at&gt;
+  &lt;updated-at type="datetime"&gt;2013-04-04T14:03:52Z&lt;/updated-at&gt;
+&lt;/local-identity&gt;
+
+or 
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Local ID for selected entity already exists.&lt;/error&gt;
+&lt;/hash&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Owner not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
+
+<h2>
+<a id="getidentitybyalias-localid-credentials-entity" class="anchor" href="#getidentitybyalias-localid-credentials-entity" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getIdentityByAlias( LocalID, Credentials): Entity</code>
+</h2>
+
+<p>Get entity by given alias and owner.</p>
+
+<h3>
+<a id="parameters-3" class="anchor" href="#parameters-3" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>localID</em>  The local identifier of an entity.</p>
+
+<p><em>credentials</em> Data necessary for identification and authorisation of authority that is registering a new entity.</p>
+
+<h3>
+<a id="returns-3" class="anchor" href="#returns-3" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of found entity data element or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-3" class="anchor" href="#example-of-the-request-and-result-3" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "search_terms=1abc&amp;owner=3" http://localhost:3000/get_by_alias.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entity&gt;
+  &lt;id type="integer"&gt;11&lt;/id&gt;
+  &lt;uuid&gt;bc573b60-1f52-4003-92b4-8863470b6119&lt;/uuid&gt;
+  &lt;description&gt;Sensor nr. 1&lt;/description&gt;
+  &lt;created-at type="datetime"&gt;2013-02-27T14:57:27Z&lt;/created-at&gt;
+  &lt;updated-at type="datetime"&gt;2013-02-27T14:57:27Z&lt;/updated-at&gt;
+  &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+&lt;/entity&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+
+or 
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Owner not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/intersoft-sk">intersoft-sk</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/intersoft-sk">intersoft-sk</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
