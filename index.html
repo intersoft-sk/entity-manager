@@ -39,6 +39,15 @@
 
 <p>The Entity Manager is implemented as a RESTful web service with the Ruby on Rails  framework and is deployed at Heroku  cloud application platform. At the <a href="http://entity-manager.herokuapp.com/entities">http://entity-manager.herokuapp.com/entities</a> URL, there is also available a simple administration console. Authorisation system is simplified in a way that authenticated users via third-party authentication (Google, Linked-In) or just registered developers are able to access the system functionality. Not authenticated users can just view current contents of the Entity Manager. </p>
 
+<h3>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note:</h3>
+
+<p>In the following examples, the destination address depends on the deployment:
+If deployed at Heroku, instead of
+<a href="http://localhost:3000/">http://localhost:3000/</a> 
+should be used 
+<a href="http://entity-manager.herokuapp.com/">http://entity-manager.herokuapp.com/</a></p>
+
 <h2>
 <a id="entity-manager-supports-the-following-api" class="anchor" href="#entity-manager-supports-the-following-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entity Manager supports the following API:</h2>
 
@@ -361,10 +370,10 @@ or
 </code></pre>
 
 <h2>
-<a id="getmasters-entity_uuid-array-of-entities" class="anchor" href="#getmasters-entity_uuid-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getMasters( Entity_UUID): Array of Entities</code>
+<a id="getmasters-entity_uuid-credentials-array-of-entities" class="anchor" href="#getmasters-entity_uuid-credentials-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getMasters( Entity_UUID, Credentials): Array of Entities</code>
 </h2>
 
-<p>Getting array of entities, which are in the master relation to the by UUID given entity.</p>
+<p>Getting array of entities, which are in the master relation to the by UUID given entity and the distance between entities in the graph defined by the relation is just one (i.e. parent entities).</p>
 
 <h3>
 <a id="parameters-6" class="anchor" href="#parameters-6" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
@@ -407,10 +416,10 @@ or
 </code></pre>
 
 <h2>
-<a id="getslaves-entity_uuid-array-of-entities" class="anchor" href="#getslaves-entity_uuid-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getSlaves( Entity_UUID): Array of Entities</code>
+<a id="getslaves-entity_uuid-credentials-array-of-entities" class="anchor" href="#getslaves-entity_uuid-credentials-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getSlaves( Entity_UUID, Credentials): Array of Entities</code>
 </h2>
 
-<p>Getting array of entities, which are in the slave relation to the by UUID given entity.</p>
+<p>Getting array of entities, which are in the slave relation to the by UUID given entity and the distance between entities in the graph defined by the relation is just one (i.e. child entities).</p>
 
 <h3>
 <a id="parameters-7" class="anchor" href="#parameters-7" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
@@ -486,7 +495,7 @@ or
 <a id="example-of-the-request-and-result-8" class="anchor" href="#example-of-the-request-and-result-8" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
 </h3>
 
-<pre><code>_FIRST addRelation:_
+<pre><code>FIRST addRelation:
 curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=2663254d-bc92-4ba7-8b8b-e946b6d59a59&amp;owner=3" http://localhost:3000/addRelation.xml
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -509,7 +518,7 @@ curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=2663254d-bc92-4ba
   &lt;/entity&gt;
 &lt;/entities&gt;
 
-_THEN:_
+THEN:
 curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=2663254d-bc92-4ba7-8b8b-e946b6d59a59&amp;owner=3" http://localhost:3000/removeRelation.xml
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -523,6 +532,177 @@ curl -d "master=e15f9dbc-1f7d-4b2a-85c0-6e613a2a6432&amp;slave=2663254d-bc92-4ba
     &lt;schema&gt;urn:entityID:&lt;/schema&gt;
   &lt;/entity&gt;
 &lt;/entities&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
+
+<h2>
+<a id="getallmastersuuid-credentials-range-array-of-entities" class="anchor" href="#getallmastersuuid-credentials-range-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getAllMasters(UUID, Credentials, range): Array of Entities</code>
+</h2>
+
+<p>Getting array of entities, which are in the master position to the given entity by UUID - either direct (range == 1) or indirect (range &gt; 1).</p>
+
+<h3>
+<a id="parameters-9" class="anchor" href="#parameters-9" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>Entity_UUID</em> The unique identifier of the entity, which is part-of entities we are looking for (i.e. its masters).</p>
+
+<p><em>Credentials</em> Data necessary for identification and authorization of authority that is searching for masters of given entity.</p>
+
+<p><em>range</em> If the range is -1, the method will find all the predecessors of the entity regardless, of the graph depth. If range is &gt; 0, it defines how many predecessor levels will be searched for.</p>
+
+<h3>
+<a id="returns-9" class="anchor" href="#returns-9" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the array of all masters for given slave entity in case of success or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-9" class="anchor" href="#example-of-the-request-and-result-9" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "uuid=a195d2e5-8939-4736-b119-264181baa62f&amp;range=-1&amp;owner=3" http://localhost:3000/getAllMasters.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entities type="array"&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;7&lt;/id&gt;
+    &lt;uuid&gt;62b6250d-3046-4152-9530-734d25480d26&lt;/uuid&gt;
+    &lt;description&gt;description for entity 62b6250d-3046-4152-9530-734d25480d26&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;10&lt;/id&gt;
+    &lt;uuid&gt;56ad9235-a166-4bd2-b7b7-af7a3f5d86d5&lt;/uuid&gt;
+    &lt;description&gt;description for entity 56ad9235-a166-4bd2-b7b7-af7a3f5d86d5&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;12&lt;/id&gt;
+    &lt;uuid&gt;c04d1fec-2e1c-40fe-837a-e83c89dafdcb&lt;/uuid&gt;
+    &lt;description&gt;entita pre pokus2&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:34:27Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:34:27Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;11&lt;/id&gt;
+    &lt;uuid&gt;97e6572a-9648-4e3f-98ac-ddab41b93a72&lt;/uuid&gt;
+    &lt;description&gt;entita pre pokus1&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:57Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:57Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;9&lt;/id&gt;
+    &lt;uuid&gt;0b0b2dee-4440-46af-9b22-0419be75a932&lt;/uuid&gt;
+    &lt;description&gt;description for entity 0b0b2dee-4440-46af-9b22-0419be75a932&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+&lt;/entities&gt;
+
+
+or 
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;nil-classes type="array"/&gt;
+
+or
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;hash&gt;
+  &lt;error&gt;Entity not found.&lt;/error&gt;
+&lt;/hash&gt;
+</code></pre>
+
+<h2>
+<a id="getallslavesuuid-credentials-range-array-of-entities" class="anchor" href="#getallslavesuuid-credentials-range-array-of-entities" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>getAllSlaves(UUID, Credentials, range): Array of Entities</code>
+</h2>
+
+<p>Getting array of entities, which are in the child position to the given entity by UUID - either direct (range == 1) or indirect (range &gt; 1).</p>
+
+<h3>
+<a id="parameters-10" class="anchor" href="#parameters-10" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
+
+<p><em>UUID</em> The unique identifier of the entity, which is master of all entities we are looking for (i.e. its slaves).</p>
+
+<p><em>Credentials</em> Data necessary for identification and authorization of authority that is searching for slaves of given entity.</p>
+
+<p><em>range</em> If the range is -1, the method will find all the children of the entity regardless of the graph depth. If range is &gt; 0, defines how many descendant levels will be searched for.</p>
+
+<h3>
+<a id="returns-10" class="anchor" href="#returns-10" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
+
+<p>The function returns XML serialization of the array of all slaves for given master entity in case of success or error message in case of failure.</p>
+
+<h3>
+<a id="example-of-the-request-and-result-10" class="anchor" href="#example-of-the-request-and-result-10" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
+
+<pre><code>curl -d "uuid=c04d1fec-2e1c-40fe-837a-e83c89dafdcb&amp;range=-1&amp;owner=3" http://localhost:3000/getAllSlaves.xml
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;entities type="array"&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;7&lt;/id&gt;
+    &lt;uuid&gt;62b6250d-3046-4152-9530-734d25480d26&lt;/uuid&gt;
+    &lt;description&gt;description for entity 62b6250d-3046-4152-9530-734d25480d26&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;10&lt;/id&gt;
+    &lt;uuid&gt;56ad9235-a166-4bd2-b7b7-af7a3f5d86d5&lt;/uuid&gt;
+    &lt;description&gt;description for entity 56ad9235-a166-4bd2-b7b7-af7a3f5d86d5&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;12&lt;/id&gt;
+    &lt;uuid&gt;c04d1fec-2e1c-40fe-837a-e83c89dafdcb&lt;/uuid&gt;
+    &lt;description&gt;entita pre pokus2&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:34:27Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:34:27Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;11&lt;/id&gt;
+    &lt;uuid&gt;97e6572a-9648-4e3f-98ac-ddab41b93a72&lt;/uuid&gt;
+    &lt;description&gt;entita pre pokus1&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:57Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:57Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+  &lt;entity&gt;
+    &lt;id type="integer"&gt;9&lt;/id&gt;
+    &lt;uuid&gt;0b0b2dee-4440-46af-9b22-0419be75a932&lt;/uuid&gt;
+    &lt;description&gt;description for entity 0b0b2dee-4440-46af-9b22-0419be75a932&lt;/description&gt;
+    &lt;created-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/created-at&gt;
+    &lt;updated-at type="datetime"&gt;2014-12-29T12:32:06Z&lt;/updated-at&gt;
+    &lt;schema&gt;urn:entityID:&lt;/schema&gt;
+  &lt;/entity&gt;
+&lt;/entities&gt;
+
+or 
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;nil-classes type="array"/&gt;
 
 or
 
