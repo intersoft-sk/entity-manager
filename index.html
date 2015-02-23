@@ -44,12 +44,14 @@
 <a id="entity-manager-supports-the-following-api" class="anchor" href="#entity-manager-supports-the-following-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entity Manager supports the following API:</h2>
 
 <h2>
-<a id="entity-createidentity-localid-description-credentials" class="anchor" href="#entity-createidentity-localid-description-credentials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entity createIdentity( localID, description, credentials)</h2>
+<a id="entity-createidentity-localid-description-credentials" class="anchor" href="#entity-createidentity-localid-description-credentials" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Entity createIdentity( localID, description, credentials)</code>
+</h2>
 
 <p>Based on local identifier, credentials identifying an owner (i.e. stakeholder in an IoT application) and entity’s description, the call creates new entity with world-wide unique identifier that is randomly generated.</p>
 
 <h3>
-<a id="parameters" class="anchor" href="#parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameters</h3>
+<a id="parameters" class="anchor" href="#parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Parameters</code>
+</h3>
 
 <p><em>localID</em>  The local identifier of an entity.</p>
 
@@ -58,12 +60,14 @@
 <p><em>credentials</em> Data necessary for identification and authorisation of authority that is registering a new entity.</p>
 
 <h3>
-<a id="returns" class="anchor" href="#returns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Returns</h3>
+<a id="returns" class="anchor" href="#returns" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Returns</code>
+</h3>
 
 <p>The function returns XML serialization of the successfully registered entity data element or error message in case of failure.</p>
 
 <h3>
-<a id="example-of-the-request-and-result" class="anchor" href="#example-of-the-request-and-result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example of the request and result</h3>
+<a id="example-of-the-request-and-result" class="anchor" href="#example-of-the-request-and-result" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>Example of the request and result</code>
+</h3>
 
 <pre><code>curl -d "localid=sensor1ab&amp;owner=3&amp;description=Some nice description." http://localhost:3000/entities.xml
 
