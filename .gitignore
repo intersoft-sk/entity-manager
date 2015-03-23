@@ -3,10 +3,10 @@ db/schema.rb
 db/*.sqlite3
 log/*.log
 tmp/
-.sass-cache/
 config/database.yml
 server/*
 Gemfile~
+coverage/.last_run.json
 .project
 .ruby-version
 .ruby-gemset
@@ -15,10 +15,8 @@ Gemfile~
 *.rbc
 capybara-*.html
 .rspec
-/log
 /db/*.sqlite3
 /public/system
-/coverage/
 /spec/tmp
 **.orig
 rerun.txt

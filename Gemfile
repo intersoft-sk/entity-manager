@@ -6,6 +6,7 @@ gem 'rails', '3.1.12'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+
 gem 'therubyracer', require: "v8"
 gem 'metric_fu'
 gem 'kaminari'
@@ -18,8 +19,6 @@ group :assets do
   gem 'uglifier'
 end
 
-gem 'simplecov'
-
 gem 'jquery-rails'
 
 
@@ -30,6 +29,7 @@ gem 'omniauth-linkedin'
 
 gem 'factory_girl_rails'
 
+gem 'pg'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -56,17 +56,18 @@ group :test, :development do
   gem 'rspec-rails'
 #  gem 'ZenTest'
 #  gem 'sqlite3' # use SQLite only in development and testing
-  gem 'pg'
 #  gem 'ruby-debug19' # use Ruby debugger
 #  gem 'linecache19'     #'linecache19', :git => 'git://github.com/mark-moseley/linecache'
 #  gem 'ruby-debug-base19x', '~> 0.11.30.pre4'
 #  gem 'ruby-debug19'
+#  gem 'simplecov', :require => false
 end
 
 # use Haml for templates
 gem 'haml'
 
 group :production do
-  gem 'pg' # use PostgreSQL in production (Heroku)
   gem 'newrelic_rpm'
 end
+
+gem 'Saikuro'
