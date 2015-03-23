@@ -6,7 +6,7 @@ tmp/
 config/database.yml
 server/*
 Gemfile~
-coverage/.last_run.json
+coverage/
 .project
 .ruby-version
 .ruby-gemset
