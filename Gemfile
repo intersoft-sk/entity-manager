@@ -2,7 +2,9 @@ source 'http://rubygems.org'
 
 ruby '2.1.3'
 
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
+gem 'figaro'
+gem 'puma'
 
 #gem 'rails', '3.1.0'
 gem 'rails', '3.1.12'
