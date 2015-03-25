@@ -208,6 +208,9 @@ GEM
       activesupport (= 3.1.12)
       bundler (~> 1.0)
       railties (= 3.1.12)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
     rails_best_practices (1.13.2)
       activesupport
       awesome_print
@@ -216,6 +219,8 @@ GEM
       erubis
       i18n
       progressbar
+    rails_serve_static_assets (0.0.4)
+    rails_stdout_logging (0.0.3)
     railties (3.1.12)
       actionpack (= 3.1.12)
       activesupport (= 3.1.12)
@@ -306,6 +311,7 @@ DEPENDENCIES
   omniauth-linkedin
   pg
   rails (= 3.1.12)
+  rails_12factor
   rspec-rails
   sass-rails (~> 3.1.0)
   therubyracer
