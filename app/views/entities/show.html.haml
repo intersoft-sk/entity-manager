@@ -32,6 +32,35 @@
   %tbody
     = render :partial=>'local_identity', :collection=>@localIDs
 
+%h3 List of slaves for #{@entity.uuid}
+
+%table#slaves
+  %thead
+    %tr
+      %th Entity UUID
+      %th Description               
+  %tbody
+    - @slaves.each do |entity|
+      %tr
+        %td= entity.uuid 
+        %td= entity.description
+        %td= link_to "More about #{entity.uuid}", entity_path(entity)
+        
+%h3 List of masters for #{@entity.uuid}
+
+%table#masters
+  %thead
+    %tr
+      %th Entity UUID
+      %th Description               
+  %tbody
+    - @masters.each do |entity|
+      %tr
+        %td= entity.uuid 
+        %td= entity.description
+        %td= link_to "More about #{entity.uuid}", entity_path(entity)
+%p
+
 = link_to 'Add Local ID', new_entity_local_identity_path(@entity)
 
 

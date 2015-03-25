@@ -56,6 +56,8 @@ class EntitiesController < ApplicationController
       flash[:notice] = "Entity with internal ID '#{id}' does not exist!"
       redirect_to entities_path
     else
+      @slaves = @entity.slaves  
+      @masters = @entity.masters     
       @entity
     end
     @localIDs = @entity.local_identities
